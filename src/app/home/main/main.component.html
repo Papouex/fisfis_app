@@ -1,0 +1,859 @@
+<ActionBar backgroundColor="#FFB73D">
+    <GridLayout columns="auto,*,auto" orientation="horizontal" ios:padding="0 10" height="100%" width="100%">
+        <Label text="&#xf036;" class="fa" fontSize="25" col="0" color="white" textAlignment="center"
+            verticalAlignment="center" horizontalAlignment="left" (tap)="openDrawer()"></Label>
+        <Image width="70%" height="37" src="~/assets/logo_white.png" fontSize="22" color="white"
+            horizontalAlignment="center" verticalAlignment="center" col="1" style="margin-left:15"></Image>
+
+        <GridLayout rows="auto, auto" columns="*" verticalAlignment="center" col="2" (tap)="setSavedCommand()"
+            textAlignment="center" verticalAlignment="center" horizontalAlignment="left" marginRight="20">
+
+            <Label text="&#xf07a;" color="white" row="0" col="0" rowSpan="2" verticalAlignment="top"
+                class="fa android-lbl" fontSize="25"></Label>
+            <Label row="0" col="0" rowSpan="2" text="{{commandLength}}" borderRadius="100%" width="20"
+                style="background: #ff4b60; color: white; margin-top: 5;margin-left:15" verticalAlignment="top"
+                horizontalAlignment="right" textAlignment="center"></Label>
+
+        </GridLayout>
+    </GridLayout>
+</ActionBar>
+<RadSideDrawer tkExampleTitle tkToggleNavButton>
+    <GridLayout tkDrawerContent rows="auto,*" class="sideStackLayout">
+
+        <ScrollView row="1">
+            <StackLayout class="sideStackLayout" orientation="vertical">
+
+                <StackLayout orientation="horizontal" class="side-container">
+                    <Label text="&#xf015;" verticalAlignment="center" class="fa android-lbl" fontSize="25"
+                        marginRight="10" color="white"></Label>
+                    <Label text="Home" (tap)="onNavtap('search', '1')" class="sideLabel"></Label>
+                </StackLayout>
+                <StackLayout class="hr-light" marginTop="10"></StackLayout>
+
+                <StackLayout orientation="horizontal" class="side-container">
+                    <Label text="&#xf007;" verticalAlignment="center" class="fa android-lbl" fontSize="25"
+                        marginRight="10" color="white"></Label>
+                    <Label text="Profile" (tap)="onNavtap('profile', '2')" class="sideLabel"></Label>
+                </StackLayout>
+                <StackLayout class="hr-light" marginTop="10"></StackLayout>
+                <StackLayout orientation="horizontal" class="side-container">
+                    <Label text="&#xf0c0;" verticalAlignment="center" class="fa android-lbl" fontSize="25"
+                        marginRight="10" color="white"></Label>
+                    <Label text="Refer a freind" (tap)="onNavtap('code', '4')" class="sideLabel"></Label>
+                </StackLayout>
+
+                <StackLayout class="hr-light" marginTop="10"></StackLayout>
+                <StackLayout orientation="horizontal" class="side-container">
+                    <Label text="&#xf0f3;" verticalAlignment="center" class="fa android-lbl" fontSize="25"
+                        marginRight="10" color="white"></Label>
+                    <Label text="Notifications" (tap)="onNavtap('notifications', '3')" class="sideLabel"></Label>
+                </StackLayout>
+
+                <StackLayout class="hr-light" marginTop="10"></StackLayout>
+                <!---->
+                <StackLayout orientation="horizontal" class="side-container">
+                    <Label text="&#xf075;" verticalAlignment="center" class="fa android-lbl" fontSize="25"
+                        marginRight="10" color="white"></Label>
+                    <Label text="Contact" (tap)="onNavtap('home', '0')" class="sideLabel"></Label>
+                </StackLayout>
+                <StackLayout class="hr-light" marginTop="10"></StackLayout>
+            </StackLayout>
+        </ScrollView>
+        <StackLayout row="2" orientation="horizontal" horizontalAlignment="right" verticalAlignment="bottom"
+            margin="10">
+            <Image *ngIf="lng_drapeau" src="~/app/login/uk-gray.png" class="flag"></Image>
+            <Image *ngIf="!lng_drapeau" src="~/app/login/uk.png" class="flag"></Image>
+            <Switch backgroundColor="#FFB73D" checked="true" (checkedChange)="onCheckedChange($event)"></Switch>
+            <Image *ngIf="lng_drapeau" src="~/app/login/fr.png" class="flag"></Image>
+            <Image *ngIf="!lng_drapeau" src="~/app/login/fr-gray.png" class="flag"></Image>
+        </StackLayout>
+        <Label row="2" text="Logout" (tap)="logout()" class="sideLabel" verticalAlignment="bottom"></Label>
+    </GridLayout>
+    <StackLayout tkMainContent>
+        <GridLayout rows="*,auto">
+            <ScrollView row="0">
+                <!--80 75 85-->
+                <GridLayout rows="*,*,*,*" columns="auto,*" class="page">
+                    <GridLayout
+                        [visibility]="selectedRoute == 'search' || selectedRoute == 'code' || selectedRoute == 'confirm' || selectedRoute == 'past' || selectedRoute == 'profile' || selectedRoute == 'last' ? 'visible' : 'collapse'"
+                        col="0" row="0" colSpan="2"
+                        *ngIf="selectedRoute=='search' || selectedRoute == 'confirm' || selectedRoute == 'code' || selectedRoute == 'past' || selectedRoute == 'profile' || selectedRoute == 'last'"
+                        class="margins-page" marginBottom="0" rows="auto" columns="*" marginTop="10" marginLeft="10"
+                        marginRight="10">
+                        <StackLayout row="0" orientation="horizontal" horizontalAlignment="left"
+                            class="left button-location" height="35" borderWidth="1" borderColor="#FFB73D"
+                            backgroundColor="white">
+
+                            <Label text="&#xf041;" fontSize="24" marginLeft="10" marginRight="10" color="#FFB73D"
+                                class="fa" verticalAlignment="center" horizontalAlignment="center"></Label>
+                            <Label text="{{zone}}" class="location-text" color="#FFB73D"></Label>
+                        </StackLayout>
+                        <!--{{baseUrl+''+user.picture_url}}-->
+                        <Image row="0" horizontalAlignment="right" (tap)="onNavtap('profile', '2')"
+                            class="right image-profile" stretch="none" src="{{baseUrl+''+user.picture_url}}"></Image>
+                    </GridLayout>
+                    <StackLayout
+                        [visibility]="selectedRoute == 'search' || selectedRoute == 'confirm' || selectedRoute == 'past' || selectedRoute == 'code' || selectedRoute == 'profile' || selectedRoute == 'last' ? 'visible' : 'collapse'"
+                        *ngIf="selectedRoute=='search' || selectedRoute == 'confirm' || selectedRoute == 'past' || selectedRoute == 'code' || selectedRoute == 'profile' || selectedRoute == 'last'"
+                        class="hr-light" marginTop="65" marginBottom="10" colSpan="2" col="0"></StackLayout>
+                    <GridLayout [visibility]="selectedRoute == 'search' ? 'visible' : 'collapse'" row="1"
+                        *ngIf="selectedRoute=='search'" class="margins-page" marginTop="0" col="0" marginLeft="10"
+                        marginRight="10" rows="auto,auto" columns="*">
+
+                        <Label class="titles mar" row="0" text="Order Command" marginBottom="10"></Label>
+                        <StackLayout row="1" orientation="horizontal" horizontalAlignment="left"
+                            class="left button-location" (tap)="onNavtap('command', '6')">
+
+                            <Label text="&#xf217;" fontSize="24" marginLeft="10" marginRight="10" color="white"
+                                class="fa" verticalAlignment="center" horizontalAlignment="center"></Label>
+                            <Label text="Order Command" class="location-text"></Label>
+                        </StackLayout>
+
+
+                    </GridLayout>
+                    <GridLayout [visibility]="selectedRoute == 'search' ? 'visible' : 'collapse'"
+                        *ngIf="selectedRoute=='search'" class="margins-page" marginTop="10" col="0" marginLeft="10"
+                        marginRight="10" row="2" rows="auto,auto" columns="*">
+
+                        <Label class="titles mar" row="0" text="Refer a freind" marginBottom="10"></Label>
+                        <StackLayout row="1" orientation="horizontal" horizontalAlignment="left"
+                            class="left button-location" (tap)="onNavtap('code', '4')">
+
+                            <Label text="&#xf0c0;" fontSize="24" marginLeft="10" marginRight="10" color="white"
+                                class="fa" verticalAlignment="center" horizontalAlignment="center"></Label>
+                            <Label text="Refer someone" class="location-text"></Label>
+                        </StackLayout>
+
+
+                    </GridLayout>
+                    <GridLayout [visibility]="selectedRoute == 'search' ? 'visible' : 'collapse'"
+                        *ngIf="selectedRoute=='search'" row="1" rowSpan="1" col="1" marginLeft="0" marginTop="0"
+                        rows="auto,auto" columns="*">
+                        <Label class="titles mar" row="0" text="Past Commands" marginBottom="10"></Label>
+                        <StackLayout row="1" orientation="horizontal" horizontalAlignment="left"
+                            class="left button-location" (tap)="onNavtap('past', '7')" marginRight="10">
+                            <Label text="&#xf187;" fontSize="20" marginLeft="5" marginRight="5" color="white" class="fa"
+                                verticalAlignment="center" horizontalAlignment="center"></Label>
+                            <Label text="Check historic" class="location-text"></Label>
+                        </StackLayout>
+                    </GridLayout>
+                    <!--Home screen-->
+                    <StackLayout row="3" rowSpan="2" colSpan="2" col="0"
+                        [visibility]="selectedRoute == 'search' ? 'visible' : 'collapse'">
+                        <StackLayout>
+                            <GridLayout *ngIf="!prody && pub" rows="auto, auto" columns="*, *" marginTop="10"
+                                marginLeft="10" marginRight="10" backgroundColor="#FFB73D" borderRadius="10%">
+                                <Image borderColor="white" row="0" col="0" rowSpan="2" src="~/assets/delice.jpg"
+                                    stretch="aspectFill" marginRight="10" padding="30" margin="30" borderRadius="20%">
+                                </Image>
+                                <Label borderColor="white" row="0" col="1" width="80%" class="pub-title"
+                                    horizontalAlignment="center" verticalAlignment="center" [text]="pub.title"></Label>
+                                <Label borderColor="white" row="1" col="1" width="80%" class="pub-second"
+                                    horizontalAlignment="center" [text]="pub.second_title"></Label>
+                                <Label borderColor="white" row="1" col="1" width="100%" class="pub-third"
+                                    horizontalAlignment="center" verticalAlignment="center"
+                                    [text]="pub.third_title"></Label>
+
+                            </GridLayout>
+                            <!-- <Label class="titles mar" text="Saved cart" margin="10"></Label>
+                            <GridLayout borderWidth="1" (tap)="setSavedCommand()" borderColor="#FFB73D" borderRadius="20%" margin="20">
+                                <Label text="&#xf291;" fontSize="30" class="fa" margin="20" color="#FFB73D"
+                                    textAlignment="center" verticalAlignment="center"
+                                    horizontalAlignment="center"></Label>
+                            </GridLayout> -->
+
+                            <!--<Image  borderColor="white" borderWidth="1"
+                                [src]="baseUrl+''+item.imageSrc" [height]="photoHeight" [width]="photoWidth" stretch="aspectFill"></Image>-->
+                            <StackLayout *ngIf="!prody && preCommands" orientation="vertical" marginTop="10"
+                                marginBottom="10" marginLeft="10">
+                                <Label class="titles mar" text="Prepared Command"></Label>
+                                <ScrollView orientation="horizontal" scrollBarIndicatorVisible="false">
+                                    <StackLayout horizontalAlignment="left" orientation="horizontal">
+                                        <GridLayout backgroundColor="#EFEFEF" rows="*" columns="*"
+                                            textAlignment="center" verticalAlignment="center" borderRadius="10%"
+                                            (tap)="preCommand(0)">
+                                            <Label text="&#xf217;" class="fa" fontSize="25" row="0" col="0" padding="10"
+                                                marginTop="20" marginBottom="20" verticalAlignment="center"
+                                                horizontalAlignment="center" textAlignment="center"
+                                                color="black"></Label>
+                                        </GridLayout>
+                                        <GridLayout *ngFor="let command of preCommands; let i=index" rows="auto, auto"
+                                            style="margin: 10;" columns="*,*" backgroundColor="#EFEFEF"
+                                            borderRadius="10%" (tap)="preCommand(command)">
+                                            <StackLayout class="cat-img-holder" orientation="horizontal" row="0"
+                                                col="0">
+
+                                                <StackLayout orientation="vertical" style="margin:20;">
+                                                    <Label class="command-name" text="{{ command.name }}"></Label>
+                                                    <Label class="command-price" horizontalAlignment="right"
+                                                        text="{{ formatUserNumber(command.total) }} DT"></Label>
+                                                </StackLayout>
+
+                                            </StackLayout>
+                                            <Label class="fa" fontSize="25" verticalAlignment="top" row="0" col="1"
+                                                horizontalAlignment="right" padding="10" marginLeft="10" color="black"
+                                                text="&#xf1f8;" (tap)="deleteCommand(command)"></Label>
+                                        </GridLayout>
+                                    </StackLayout>
+                                </ScrollView>
+                            </StackLayout>
+                            <GridLayout rows="*" columns="auto,*">
+                                <Label class="titles mar" text="Number of commands" row="0" col="0"
+                                    horizontalAlignment="left" margin="10" verticalAlignment="center"></Label>
+                                <Label class="titles mar" text="{{user.command_no}}" row="0" col="1" borderWidth="2"
+                                    paddingLeft="10" paddingRight="10" borderColor="gray" verticalAlignment="center"
+                                    horizontalAlignment="left" marginLeft="20"></Label>
+                            </GridLayout>
+                            <!-- <StackLayout *ngIf="!prody && preCommands" orientation="vertical" marginTop="10"
+                                    marginBottom="10" marginLeft="10">
+                                    <Label class="titles mar" text="Past Commands"></Label>
+                                    <ScrollView orientation="horizontal" scrollBarIndicatorVisible="false">
+                                        <StackLayout horizontalAlignment="left" orientation="horizontal">
+    
+                                            <GridLayout *ngFor="let command of preCommands; let i=index" rows="auto, auto"
+                                                style="margin: 10;">
+                                                <StackLayout (tap)="preCommand(command)" class="cat-img-holder"
+                                                    orientation="horizontal" backgroundColor="#EFEFEF" borderRadius="10%">
+                                                    <Image row="0" [src]="command.imageSrc" verticalAlignment="center"
+                                                        horizontalAlignment="center" stretch="aspectFill" class="imgheader">
+                                                    </Image>
+                                                    <StackLayout orientation="vertical" style="margin:20;">
+                                                        <Label class="command-name" text="{{ command.name }}"></Label>
+                                                        <Label class="command-price" horizontalAlignment="right"
+                                                            text="{{ formatUserNumber(command.total) }} DT"></Label>
+                                                    </StackLayout>
+    
+                                                </StackLayout>
+                                                <Label class="fa" fontSize="25" verticalAlignment="top" padding="10"
+                                                    color="black" text="&#xf1f8;" (tap)="deleteCommand(command)"
+                                                    horizontalAlignment="right"></Label>
+                                            </GridLayout>
+                                        </StackLayout>
+                                    </ScrollView>
+                                </StackLayout>-->
+                        </StackLayout>
+
+                    </StackLayout>
+                    <!--Products screen-->
+                    <StackLayout row="0" rowSpan="4" colSpan="2" col="0"
+                        [visibility]="selectedRoute == 'command' ? 'visible' : 'collapse'">
+                        <StackLayout>
+                            <StackLayout orientation="horizontal" class="search-bar" marginTop="20" marginLeft="10"
+                                marginRight="10" verticalAlignment="center">
+                               <!--  <Label text="&#xf002;" class="fa" fontSize="17" color="black" marginRight="5"
+                                    verticalAlignment="center" marginLeft="10"></Label>
+                               <TextField class="form-input" textAlignment="left" hint="What are you looking for ?">
+                                </TextField>-->
+                                <SearchBar hint="What are you looking for ?" class="form-input" [text]="searchPhrase"
+                                    (textChange)="onTextChanged($event)" (clear)="onClear($event)"
+                                    (submit)="onSubmit($event)">
+                                </SearchBar>
+                            </StackLayout>
+                            <StackLayout *ngIf="isPre" marginTop="15" marginBottom="10">
+                                <TextField class="form-input" textAlignment="left" [(ngModel)]="commandName"
+                                    hint="Command name">
+                                </TextField>
+                            </StackLayout>
+                            <ScrollView orientation="horizontal" *ngIf="!filteredProducts || filteredProducts.length<=0" scrollBarIndicatorVisible="false" marginTop="10"
+                                marginLeft="5" marginRight="10" height="100%">
+
+                                <StackLayout orientation="horizontal">
+                                    <GridLayout *ngFor="let item of categories;let i=index"
+                                        [ngStyle]="{'background': (i == index) ? '#FFB73D' : 'rgba(0,0,0,0.1)' }"
+                                        height="80" rows="auto" borderRadius="10%" style="margin: 5;"
+                                        (tap)="showSub(item,i);">
+                                        <StackLayout borderRadius="10%" row="0" class="back-cat" height="80" width="70"
+                                            stretch="aspectFill"></StackLayout>
+
+                                        <Image borderRadius="100%" row="0" [src]="baseUrl+''+item.cat_img" height="40"
+                                            verticalAlignment="top" width="40" stretch="aspectFill" marginTop="10">
+                                        </Image>
+                                        <Label row="0" [text]="item.cat_name" color="black" fontSize="14"
+                                            verticalAlignment="bottom" horizontalAlignment="center" marginBottom="10">
+                                        </Label>
+                                    </GridLayout>
+                                </StackLayout>
+                            </ScrollView>
+                            <FlexboxLayout *ngIf="filteredProducts && filteredProducts.length>0" flexWrap="wrap"
+                                width="100%" marginLeft="10" marginRight="10" marginTop="10" row="1" col="0"
+                                class="products-holder">
+                                <!--[height]="photoHeight"-->
+                                <GridLayout *ngFor="let item of filteredProducts" height="170"
+                                    horizontalAlignment="center" [width]="photoWidth" rows="auto">
+                                    <StackLayout row="0" class="back-prod" borderWidth="1" borderRadius="10%"
+                                        borderColor="#FFB73D" height="95%" width="95%" marginRight="20" marginLeft="20">
+                                    </StackLayout>
+                                    <Image row="0" [src]="baseUrl+''+item.imageSrc" height="60" verticalAlignment="top"
+                                        width="60" stretch="aspectFill" marginTop="10">
+                                    </Image>
+                                    <StackLayout orientation="vertical" row="0" marginTop="60"
+                                        verticalAlignment="center" horizontalAlignment="center">
+                                        <Label row="0" [text]="item.name" textWrap="true" color="black" fontSize="15"
+                                            verticalAlignment="center" horizontalAlignment="center"> </Label>
+
+                                        <StackLayout orientation="horizontal" row="0" horizontalAlignment="center"
+                                            style="text-align: center">
+
+                                            <Label text="&#xf056;" class="fa" marginLeft="10" marginRight="10"
+                                                color="#FFB73D" fontSize="24" (tap)="retrieveProduct(item,false)"
+                                                verticalAlignment="center" horizontalAlignment="right"></Label>
+                                            <Label text="{{returnQte(item)}}" class="item-nbr"></Label>
+                                            <Label text="&#xf055;" marginLeft="10" marginRight="10" class="fa"
+                                                color="#FFB73D" fontSize="24" verticalAlignment="center"
+                                                horizontalAlignment="left" (tap)="addProduct(item,false)"></Label>
+
+                                        </StackLayout>
+                                    </StackLayout>
+                                    <Label row="0" text="{{formatUserNumber(item.prix_u)}} DT" color="black"
+                                        fontSize="15" horizontalAlignment="center" verticalAlignment="bottom"
+                                        marginBottom="10">
+                                    </Label>
+
+                                    <!--- <Label row="0" text="Add" class="add-prod" fontSize="15" fontWeight="bold"
+                                    verticalAlignment="bottom" horizontalAlignment="center" marginBottom="10"
+                                    (tap)="addProd(item)"></Label>-->
+
+                                </GridLayout>
+                            </FlexboxLayout>
+                            <StackLayout *ngIf="subies && (!filteredProducts || filteredProducts.length<=0)" orientation="vertical" marginLeft="10" marginRight="10"
+                                marginBottom="10">
+
+                                <GridLayout rows="auto,*" columns="*" marginTop="10" width="100%"
+                                    *ngFor="let sub of subies.subcats;let i=index;">
+                                    <GridLayout class="back-cat" (tap)="showProducts(i,sub)" backgroundColor="#FFB73D"
+                                        rows="*" row="0" col="0" borderRadius="10%" marginTop="10" padding="10"
+                                        height="65" width="100%" stretch="aspectFill">
+                                        <Label text="{{sub.name}}" row="0" col="0" verticalAlignment="center"
+                                            horizontalAlignment="left" fontSize="18" color="white"></Label>
+                                        <Label text="&#xf0ab;" row="0" col="1" class="fa" fontSize="25"
+                                            horizontalAlignment="right" verticalAlignment="center" padding="10"
+                                            color="white"></Label>
+                                    </GridLayout>
+                                    <FlexboxLayout *ngIf="chosenProducts && chosenProducts.length>0 && i==indexSub"
+                                        [ngClass]="showProd ? 'prodanim' : 'prodisappear'"
+                                        [visibility]="i==indexSub && showProd ? 'visible' : 'collapse'" flexWrap="wrap"
+                                        width="100%" marginTop="10" row="1" col="0"
+                                        class="products-holder">
+                                        <!--[height]="photoHeight"-->
+                                        <GridLayout *ngFor="let item of chosenProducts" height="170"
+                                            horizontalAlignment="center" [width]="photoWidth" rows="auto">
+                                            <StackLayout row="0" class="back-prod" borderWidth="1" borderRadius="10%"
+                                                borderColor="#FFB73D" height="95%" width="95%" marginRight="20"
+                                                marginLeft="20">
+                                            </StackLayout>
+                                            <Image row="0" [src]="baseUrl+''+item.imageSrc" height="60"
+                                                verticalAlignment="top" width="60" stretch="aspectFill" marginTop="10">
+                                            </Image>
+                                            <StackLayout orientation="vertical" row="0" marginTop="60"
+                                                verticalAlignment="center" horizontalAlignment="center">
+                                                <Label row="0" [text]="item.name" textWrap="true" color="black"
+                                                    fontSize="15" verticalAlignment="center"
+                                                    horizontalAlignment="center"> </Label>
+
+                                                <StackLayout orientation="horizontal" row="0"
+                                                    horizontalAlignment="center" style="text-align: center">
+
+                                                    <Label text="&#xf056;" class="fa" marginLeft="10" marginRight="10"
+                                                        color="#FFB73D" fontSize="24"
+                                                        (tap)="retrieveProduct(item,false)" verticalAlignment="center"
+                                                        horizontalAlignment="right"></Label>
+                                                    <Label text="{{returnQte(item)}}" class="item-nbr"></Label>
+                                                    <Label text="&#xf055;" marginLeft="10" marginRight="10" class="fa"
+                                                        color="#FFB73D" fontSize="24" verticalAlignment="center"
+                                                        horizontalAlignment="left"
+                                                        (tap)="addProduct(item,false)"></Label>
+
+                                                </StackLayout>
+                                            </StackLayout>
+                                            <Label row="0" text="{{formatUserNumber(item.prix_u)}} DT" color="black"
+                                                fontSize="15" horizontalAlignment="center" verticalAlignment="bottom"
+                                                marginBottom="10">
+                                            </Label>
+
+                                            <!--- <Label row="0" text="Add" class="add-prod" fontSize="15" fontWeight="bold"
+                                            verticalAlignment="bottom" horizontalAlignment="center" marginBottom="10"
+                                            (tap)="addProd(item)"></Label>-->
+
+                                        </GridLayout>
+                                    </FlexboxLayout>
+                                    <Label *ngIf="chosenProducts.length==0 && i==indexSub"
+                                        [visibility]="i==indexSub ? 'visible' : 'collapse'"
+                                        text="No products in this category" row="1" col="0" class="prod-msg"
+                                        horizontalAlignment="center" marginTop="20" marginBottom="20"></Label>
+
+                                </GridLayout>
+                                <!-- <GridLayout rows="auto,*" columns="*,auto" borderRadius="10%"
+                                    *ngFor="let sub of subies.subcats;let i=index" marginTop="10"
+                                    (tap)="showProducts(i,sub)" class="back-cat" backgroundColor="#FFB73D" height="65"
+                                    width="100%" stretch="aspectFill" padding="10">
+    
+                                    <Label text="{{sub.name}}" row="0" col="0" verticalAlignment="center"
+                                        horizontalAlignment="left" fontSize="18" color="white"></Label>
+                                    <Label text="&#xf0ab;" row="0" col="1" class="fa" fontSize="25"
+                                        horizontalAlignment="right" verticalAlignment="center" padding="10"
+                                        color="white"></Label>
+    
+                                </GridLayout>-->
+                            </StackLayout>
+
+
+                        </StackLayout>
+                    </StackLayout>
+                    <!--Confirm screen-->
+                    <StackLayout row="1" rowSpan="4" height="100%" colSpan="2" col="0"
+                        [visibility]="selectedRoute == 'confirm' ? 'visible' : 'collapse'" orientation="vertical"
+                        margin="20">
+                        <GridLayout columns="*,*" rows="*">
+                            <Label text="&#xf112;" class="fa android-lbl" fontSize="24" row="0" col="0"
+                                horizontalAlignment="left" (tap)="onNavtap('command', '6')"></Label>
+                            <Label text="{{commandTotal}} DT" class="fa android-lbl" fontSize="18" row="0" col="1"
+                                horizontalAlignment="right"></Label>
+                        </GridLayout>
+                        <GridLayout rows="*" columns="auto,auto,*,auto" margin="10" borderWidth="1" borderColor="gray"
+                            borderRadius="10" horizontalAlignment="center"
+                            *ngFor="let item of command_products;let i=index" orientation="horizontal"
+                            class="product-stack">
+
+                            <Image src="{{ baseUrl+''+item.prod_image }}" col="0" row="0" verticalAlignment="center"
+                                width="60" height="60" stretch="aspectFill" margin="10"></Image>
+
+
+                            <StackLayout orientation="vertical" col="1" row="0" verticalAlignment="center">
+                                <Label text="{{ item.prod_name }}" class="item-name" textWrap="true"></Label>
+
+                                <Label text="{{ formatUserNumber(item.prod_unit_price) }} DT"
+                                    class="item-price"></Label>
+                            </StackLayout>
+                            <StackLayout orientation="horizontal" col="2" row="0" horizontalAlignment="center"
+                                verticalAlignment="center" style="text-align: center">
+
+                                <Label text="&#xf056;" class="fa" marginLeft="10" marginRight="10" color="#FFB73D"
+                                    fontSize="24" (tap)="retrieveProduct(item,true)" verticalAlignment="center"
+                                    horizontalAlignment="right"></Label>
+                                <Label text="{{item.prod_qte}}" class="item-nbr"></Label>
+                                <Label text="&#xf055;" marginLeft="10" marginRight="10" class="fa" color="#FFB73D"
+                                    fontSize="24" verticalAlignment="center" horizontalAlignment="left"
+                                    (tap)="addProduct(item,true)"></Label>
+
+                            </StackLayout>
+                            <Label verticalAlignment="top" col="3" row="0" horizontalAlignment="right"
+                                class="fa android-lbl" text="&#xf00d;" height="15" width="15" style="margin-top:10"
+                                (tap)="deleteProduct(item)" color="red"></Label>
+                        </GridLayout>
+                    </StackLayout>
+
+                    <!--Last screen-->
+                    <StackLayout row="1" rowSpan="5" col="0" colSpan="2"
+                        [visibility]="selectedRoute == 'last' ? 'visible' : 'collapse'">
+
+                        <StackLayout *ngIf="command">
+                            <GridLayout borderBottomWidth="0.5" borderBottomColor="gray" rows="auto, auto" columns="*"
+                                padding="10">
+                                <Label text="Checkout" fontSize="25" class="checkout" row="0" col="0"
+                                    horizontalAlignment="left"></Label>
+
+                            </GridLayout>
+                            <GridLayout rows="auto,auto,auto,*,auto" marginTop="20" marginLeft="15" marginRight="15">
+
+                                <StackLayout row="0" col="0" borderBottomWidth="0.5" borderBottomColor="#FFB73D"
+                                    class="form-holder" marginLeft="10" marginRight="10" orientation="horizontal">
+                                    <Label class="fa form-ico" color="#FFB73D" text="&#xf041;" marginLeft="15"
+                                        verticalAlignment="center" fontSize="24"></Label>
+                                    <TextField hint="05 Street Name,City" class="form-input-last" marginLeft="10"
+                                        marginRight="15" textAlignment="left" [(ngModel)]="command.user.exact_adress">
+
+                                    </TextField>
+                                </StackLayout>
+                                <StackLayout row="1" col="0" borderBottomWidth="0.5" borderBottomColor="#FFB73D"
+                                    class="form-holder" marginLeft="10" marginRight="10" orientation="horizontal">
+                                    <Label class="fa form-ico" color="#FFB73D" text="&#xf095;" marginLeft="15"
+                                        verticalAlignment="center" fontSize="24"></Label>
+                                    <TextField hint="Phone Number" [(ngModel)]="command.user.client_number"
+                                        class="form-input-last" marginLeft="10" marginRight="15" textAlignment="left">
+
+                                    </TextField>
+                                </StackLayout>
+                                <StackLayout row="2" col="0" borderBottomWidth="0.5" borderBottomColor="#FFB73D"
+                                    marginLeft="10" marginRight="10" class="form-holder" orientation="horizontal">
+                                    <Label class="fa form-ico" color="#FFB73D" text="&#xf017;" marginLeft="15"
+                                        verticalAlignment="center" fontSize="24"></Label>
+                                    <!-- <TextField hint="Pick your time" [(ngModel)]="command.chosenTime"
+                                        class="form-input-last" marginLeft="10" marginRight="15" textAlignment="left">
+
+                                    </TextField>-->
+
+                                    <ListPicker [items]="hours" selectedIndex="0" width="80%"
+                                        (selectedIndexChange)="onSelectedIndexChanged($event)"></ListPicker>
+                                </StackLayout>
+                                <StackLayout row="3" col="0" borderBottomWidth="0.5" borderBottomColor="#FFB73D"
+                                    class="form-holder" marginLeft="10" marginRight="10" orientation="horizontal">
+                                    <!--style.placeholderColor="white"-->
+                                    <Label class="fa form-ico" color="#FFB73D" text="&#xf075;" marginLeft="15"
+                                        fontSize="24"></Label>
+                                    <TextView height="200px" hint="Enter request" [(ngModel)]="command.request"
+                                        returnKeyType="send" marginLeft="10" marginRight="15" class="form-input-last"
+                                        [(ngModel)]="request" textAlignment="left"></TextView>
+                                </StackLayout>
+                                <StackLayout row="4" col="0" borderBottomWidth="0.5" borderBottomColor="#FFB73D"
+                                    class="form-holder" marginLeft="10" marginRight="10" orientation="horizontal">
+                                    <Label class="fa form-ico" color="#FFB73D" marginLeft="15"
+                                        verticalAlignment="center" text="&#xf06b;" fontSize="24"></Label>
+                                    <TextField hint="Promo Code" [(ngModel)]="command.promotion_code"
+                                        class="form-input-last" marginLeft="10" marginRight="15" textAlignment="left">
+
+                                    </TextField>
+                                </StackLayout>
+
+
+                            </GridLayout>
+                            <GridLayout rows="auto" columns="*" class="text-holder" marginLeft="15" marginRight="15">
+                                <Label class="command-text left" row="0" horizontalAlignment="left" style="margin:5"
+                                    text="Price HT"></Label>
+                                <Label class="command-text right" row="0" horizontalAlignment="right" style="margin:5"
+                                    text="{{ formatUserNumber(command.total-((command.total*20)/100)) }} DT"></Label>
+                            </GridLayout>
+                            <GridLayout rows="auto" columns="*" class="text-holder" marginLeft="15" marginRight="15">
+                                <Label class="command-text left" row="0" horizontalAlignment="left" style="margin:5"
+                                    text="TVA"></Label>
+                                <Label class="command-text right" row="0" horizontalAlignment="right" style="margin:5"
+                                    text="20%"></Label>
+                            </GridLayout>
+                            <GridLayout rows="auto" columns="*" class="text-holder" marginLeft="15" marginRight="15">
+                                <Label class="command-text left" row="0" horizontalAlignment="left" style="margin:5"
+                                    text="Price TTC"></Label>
+                                <Label class="command-text right" row="0" horizontalAlignment="right" style="margin:5"
+                                    text="{{ formatUserNumber(command.total)}} DT"></Label>
+                            </GridLayout>
+
+                            <!--STACK HORIZONTAL-->
+                            <GridLayout rows="auto" columns="*" class="text-holder" marginLeft="15" marginRight="15">
+                                <Label class="command-text left" row="0" horizontalAlignment="left" style="margin:5"
+                                    text="Shipping Cost"></Label>
+                                <Label class="command-text right" row="0" horizontalAlignment="right" style="margin:5"
+                                    text="2 DT"></Label>
+                            </GridLayout>
+                            <!--STACK HORIZONTAL-->
+                            <GridLayout borderTopWidth="1" borderTopColor="gray" rows="auto" columns="*"
+                                class="text-holder" marginLeft="15" marginRight="15">
+                                <Label class="command-text bold-family left" row="0" horizontalAlignment="left"
+                                    style="margin:5" text="Total"></Label>
+                                <Label class="command-text right" row="0" horizontalAlignment="right" style="margin:5"
+                                    text="{{ formatUserNumber(command.total+2) }} DT"></Label>
+                            </GridLayout>
+                            <StackLayout marginTop="10" marginBottom="10" marginLeft="20" marginRight="20"
+                                orientation="horizontal" class="button-location" backgroundColor="#FFB73D"
+                                borderWidth="1" borderColor="#fff" height="60" verticalAlignment="center"
+                                (tap)="sendCommand()" borderRadius="0" horizontalAlignment="center"
+                                textAlignment="center" width="80%">
+                                <Label text="Procéder à l'achat" class="location-text" color="#fff" marginLeft="10"
+                                    fontWeight="bold" horizontalAlignment="center" verticalAlignment="center"
+                                    textAlignment="center" textAlign="center"></Label>
+
+
+                            </StackLayout>
+
+
+                            <StackLayout orientation="vertical">
+
+                            </StackLayout>
+
+                        </StackLayout>
+                    </StackLayout>
+                    <!-- profile screen-->
+                    <StackLayout row="1" rowSpan="5" col="0" colSpan="2"
+                        [visibility]="selectedRoute == 'profile' ? 'visible' : 'collapse'">
+
+                        <StackLayout orientation="vertical">
+                            <GridLayout>
+                                <Label text="&#xf0ad;" (tap)="edit=!edit" class="fa android-lbl" color="gray"
+                                    horizontalAlignment="right" verticalAlignment="center" fontSize="28"
+                                    marginRight="20"></Label>
+                                <Label text="Save" *ngIf="edit" (tap)="updateUser()" color="#FFB73D"
+                                    horizontalAlignment="left" marginLeft="20" borderWidth="1" borderColor="#FFB73D"
+                                    padding="10" borderRadius="10%" verticalAlignment="center" fontSize="20"></Label>
+                            </GridLayout>
+                            <GridLayout borderBottomWidth="0.5" borderBottomColor="gray"
+                                rows="auto, auto, auto, auto, auto, auto, auto, auto" columns="*" padding="10">
+                                <GridLayout rows="*" columns="*" row="0" col="0" horizontalAlignment="center">
+                                    <Image *ngIf="user.picture_url" row="0" rowSpan="3" col="0"
+                                        [src]="baseUrl+''+user.picture_url" height="100" width="100" borderRadius="100%"
+                                        verticalAlignment="center" horizontalAlignment="center" stretch="aspectFill"
+                                        borderWidth="2" borderColor="#FFB73D">
+                                    </Image>
+                                    <Label row="0" rowSpan="3" col="0" borderRadius="100%" width="30" height="30"
+                                        text="&#xf055;" fontSize="30" backgroundColor="white" color="black" class="fa"
+                                        textAlignment="center" verticalAlignment="bottom" horizontalAlignment="center"
+                                        marginLeft="70"></Label>
+                                </GridLayout>
+
+                                <Label row="1" col="0" [text]="user.fname+' '+user.lname" fontWeight="bold"
+                                    textWrap="true" class="android-lbl" marginTop="20" marginBottom="5" marginLeft="5"
+                                    textAlignment="center" horizontalAlignment="center"></Label>
+                                <Label row="2" *ngIf="!edit" col="0" [text]="user.zone" textWrap="true"
+                                    class="android-lbl" marginTop="5" marginBottom="10" textAlignment="center"
+                                    horizontalAlignment="center"></Label>
+                                <TextField row="2" col="0" backgroundColor="rgba(241, 241, 241, 0.7)" hint="La Marsa"
+                                    *ngIf="edit" class="form-input-last" marginLeft="10" marginRight="15" marginTop="15"
+                                    marginBottom="15" textAlignment="left" horizontalAlignment="center"
+                                    [(ngModel)]="user.zone">
+                                </TextField>
+                                <GridLayout row="3" rows="*,*" columns="auto,auto" textAlignment="center"
+                                    horizontalAlignment="center">
+                                    <Label row="0" col="0" marginLeft="10" marginRight="20" horizontalAlignment="center"
+                                        verticalAlignment="top" color="gray" fontSize="14" text="Command"
+                                        textWrap="true"></Label>
+                                    <Label row="1" col="0" fontWeight="bold" horizontalAlignment="center"
+                                        verticalAlignment="bottom" [text]="user.command_no" class="android-lbl"></Label>
+                                    <Label row="0" col="1" marginLeft="20" marginRight="10" horizontalAlignment="center"
+                                        verticalAlignment="center" fontSize="14" color="gray" text="Referals"
+                                        textWrap="true"></Label>
+                                    <Label row="1" col="1" fontWeight="bold" horizontalAlignment="center"
+                                        verticalAlignment="bottom" [text]="user.command_no" class="android-lbl"></Label>
+
+                                </GridLayout>
+                                <Label row="4" col="0" *ngIf="!edit" colSpan="5" marginTop="20" class="android-lbl"
+                                    [text]="user.phone_number" borderWidth="0.5" borderColor="#FFB73D" borderRadius="5"
+                                    verticalAlignment="top" textAlignment="center" padding="5"
+                                    horizontalAlignment="center"></Label>
+                                <TextField row="4" col="0" backgroundColor="rgba(241, 241, 241, 0.7)" colSpan="5"
+                                    hint="25 621 635" *ngIf="edit" class="form-input-last" borderWidth="0.5"
+                                    borderColor="#FFB73D" borderRadius="5" verticalAlignment="top"
+                                    textAlignment="center" padding="5" marginTop="15" marginBottom="15"
+                                    horizontalAlignment="center" [(ngModel)]="user.phone_number">
+                                </TextField>
+                                <Label row="5" col="0" colSpan="7" [text]="user.email" textAlignment="center"
+                                    horizontalAlignment="center" fontWeight="bold" textWrap="true" class="android-lbl"
+                                    marginTop="10" marginBottom="10" marginLeft="5"></Label>
+                                <Label row="6" col="0" colSpan="7" [text]="user.exact_location" *ngIf="!edit"
+                                    fontWeight="bold" textWrap="true" class="android-lbl" marginTop="10"
+                                    marginBottom="10" textAlignment="center" horizontalAlignment="center"></Label>
+                                <TextField row="6" col="0" backgroundColor="rgba(241, 241, 241, 0.7)" colSpan="7"
+                                    hint="05 Street Name, City" *ngIf="edit" class="form-input-last" marginTop="15"
+                                    marginBottom="15" textAlignment="center" horizontalAlignment="center"
+                                    [(ngModel)]="user.exact_location"></TextField>
+                                <TextField row="7" col="0" backgroundColor="rgba(241, 241, 241, 0.7)" colSpan="7"
+                                    secure="true" hint="Password" *ngIf="edit" class="form-input-last" marginTop="15"
+                                    marginBottom="15" textAlignment="center" horizontalAlignment="center"
+                                    [(ngModel)]="user.password"> </TextField>
+                            </GridLayout>
+                        </StackLayout>
+                    </StackLayout>
+                    <!--code screen-->
+                    <GridLayout rows="auto,auto,*" row="1" rowSpan="5" height="100%" col="0" colSpan="2"
+                        [visibility]="selectedRoute == 'code' ? 'visible' : 'collapse'" width="100%" class="last-page">
+                        <GridLayout rows="*,*,*" columns="*" row="0" orientation="vertical">
+                            <Image src="~/assets/gift.png" row="0" height="100" width="100" horizontalAlignment="center"
+                                stretch="aspectFill" verticalAlignment="center"></Image>
+
+                            <TextField class="input" row="1" [(ngModel)]="pass" horizontalAlignment="center"
+                                verticalAlignment="center" width="150">
+                            </TextField>
+                            <StackLayout orientation="horizontal" row="2" verticalAlignment="center"
+                                horizontalAlignment="center" style="margin:10" (tap)="generatePass()" class="button-l">
+                                <Label text="Generate Code" class="l-text" padding="5"></Label>
+                            </StackLayout>
+                        </GridLayout>
+                        <StackLayout class="hr-light" marginTop="15" row="1" marginBottom="10" colSpan="2" col="0">
+                        </StackLayout>
+                        <StackLayout orientation="vertical" row="2">
+                            <GridLayout *ngFor="let pass of passes">
+                                <Label [text]="pass.pass" color="#000" fontSize="16" fontWeight="bold"
+                                    horizontalAlignment="left" marginLeft="20"></Label>
+                                <Label *ngIf="pass.isActive" text="Actif" color="green" fontSize="16" fontWeight="bold"
+                                    horizontalAlignment="right" marginRight="20"></Label>
+                                <Label *ngIf="!pass.isActive" text="Inactif" color="green" fontSize="16"
+                                    fontWeight="bold" horizontalAlignment="right" marginRight="20"></Label>
+                            </GridLayout>
+                        </StackLayout>
+                    </GridLayout>
+                    <!--contact screen-->
+                    <GridLayout rows="*,*,auto" row="0" rowSpan="5" col="0" colSpan="2"
+                        [visibility]="selectedRoute == 'home' ? 'visible' : 'collapse'">
+                        <GridLayout rows="*" rowSpan="2" row="0">
+                            <Image src="~/assets/contact.jpg" stretch="aspectFill" row="0" width="100%" height="200">
+                            </Image>
+
+                        </GridLayout>
+                        <GridLayout row="2" rows="*,*,*" marginLeft="10" marginRight="10">
+                            <Label text="Contact us" color="#000" fontSize="24" marginTop="20" marginBottom="20" row="0"
+                                verticalAlignment="center" horizontalAlignment="center" fontWeight="bold"></Label>
+                            <GridLayout orientation="horizontal" row="1" horizontalAlignment="center" rows="*"
+                                columns="auto,auto,*" margin="10" borderWidth="1" borderColor="gray" borderRadius="10"
+                                horizontalAlignment="center" padding="15" orientation="horizontal"
+                                class="product-stack">
+                                <Label text="&#xf098;" color="#FFB73D" marginRight="10" class="fa" fontSize="22" col="0"
+                                    row="0"></Label>
+                                <Label text="PHONE :  " col="1" class="item-name" color="#FFB73D" row="0" fontSize="20"
+                                    fontWeight="bold"></Label>
+                                <Label text="+216 55 659 421" class="item-name" color="#000" fontSize="20" row="0"
+                                    col="2" textWeight="bold"></Label>
+                            </GridLayout>
+                            <GridLayout orientation="horizontal" row="2" horizontalAlignment="center" rows="*"
+                                columns="auto,auto,*" margin="10" borderWidth="1" borderColor="gray" borderRadius="10"
+                                horizontalAlignment="center" padding="15" orientation="horizontal"
+                                class="product-stack">
+                                <Label text="&#xf1d8;" color="#FFB73D" marginRight="10" col="0" row="0" class="fa"
+                                    fontSize="22"></Label>
+                                <Label text="EMAIL :  " col="1" class="item-name" color="#FFB73D" row="0" fontSize="20"
+                                    fontWeight="bold"></Label>
+                                <Label text="fisfis@gmail.com" class="item-name" col="2" row="0" color="#000"
+                                    fontSize="20"></Label>
+                            </GridLayout>
+                        </GridLayout>
+
+
+                    </GridLayout>
+                    <!-- notifications screen -->
+                    <GridLayout row="0" rowSpan="5" col="0" colSpan="2" rows="auto, *"
+                        [visibility]="selectedRoute == 'notifications' ? 'visible' : 'collapse'">
+
+                        <GridLayout row="0" columns="*" marginTop="5">
+
+                            <Label col="0" text="NOTIFICATIONS" fontSize="20" padding="5" color="black"
+                                textAlignment="center"
+                                style="border-bottom-width: 1; border-bottom-color: black;"></Label>
+                        </GridLayout>
+                        <ScrollView row="1">
+                            <StackLayout>
+
+                                <GridLayout rows="auto, auto" columns="10, *"
+                                    *ngFor="let item of instagram.notifications">
+                                    <Label row="0" col="1" [text]="item.notify_time" marginTop="20" marginBottom="20"
+                                        color="#4c4c4c"></Label>
+
+                                    <StackLayout orientation="vertical" row="1" col="1">
+                                        <GridLayout columns="auto,10, *, auto, 10"
+                                            *ngFor="let notify_list of item.notify_list" orientation="vertical"
+                                            marginBottom="20">
+                                            <Image [src]="notify_list.imageSrc" col="0" borderRadius="100%" height="60"
+                                                width="60" verticalAlignment="center" horizontalAlignment="center"
+                                                stretch="aspectFill"></Image>
+                                            <StackLayout col="2" verticalAlignment="center">
+                                                <Label textWrap="true">
+                                                    <FormattedString>
+                                                        <Span [text]="notify_list.desc.name" fontWeight="bold"
+                                                            color="black"></Span>
+                                                        <Span [text]="notify_list.desc.date" color="#4c4c4c"></Span>
+                                                    </FormattedString>
+                                                </Label>
+                                            </StackLayout>
+                                            <Image *ngIf="notify_list.imageSrc2" [src]="notify_list.imageSrc2" col="3"
+                                                borderRadius="5" height="60" width="60" verticalAlignment="center"
+                                                horizontalAlignment="center" stretch="aspectFill"></Image>
+                                        </GridLayout>
+                                    </StackLayout>
+
+                                </GridLayout>
+                            </StackLayout>
+                        </ScrollView>
+                    </GridLayout>
+                    <!--&#xf291;-->
+                    <!--Past screen-->
+                    <StackLayout row="1" rowSpan="4" height="100%" colSpan="2" col="0"
+                        [visibility]="selectedRoute == 'past' ? 'visible' : 'collapse'" orientation="vertical"
+                        margin="20">
+                        <GridLayout rows="*" columns="*,auto,auto" margin="10" borderWidth="1" borderColor="gray"
+                            borderRadius="10" horizontalAlignment="center" *ngFor="let item of pastCommands;let i=index"
+                            orientation="horizontal" class="product-stack">
+                            <Label text="&#xf291;" class="fa android-lbl" fontSize="30" col="0" row="0"
+                                verticalAlignment="center" color="white" margin="10"></Label>
+
+
+                            <StackLayout orientation="vertical" col="1" row="0" verticalAlignment="center">
+                                <Label text="{{ item.name }}" class="item-name" textWrap="true"></Label>
+
+                                <Label text="{{ formatUserNumber(item.total) }} DT" class="item-price"></Label>
+                            </StackLayout>
+
+                            <Label verticalAlignment="top" *ngIf="item.canceled" col="3" row="0"
+                                horizontalAlignment="right" class="fa android-lbl" text="&#xf00d;" padding="20"
+                                fontSize="14" style="margin-top:10" color="red" backgroundColor="#FFB73D"
+                                borderRadius="10%" margin="20"></Label>
+                            <Label verticalAlignment="top" *ngIf="item.enCours" col="3" row="0"
+                                horizontalAlignment="right" class="fa android-lbl" text="&#xf12a;" padding="20"
+                                fontSize="14" style="margin-top:10" color="white" backgroundColor="#FFB73D"
+                                borderRadius="10%" margin="20"></Label>
+                            <Label verticalAlignment="top" *ngIf="item.delievered" col="3" row="0"
+                                horizontalAlignment="right" class="fa android-lbl" text="&#xf087;" padding="20"
+                                fontSize="14" style="margin-top:10" color="white" backgroundColor="#FFB73D"
+                                borderRadius="10%" margin="20"></Label>
+
+                        </GridLayout>
+                    </StackLayout>
+                    <GridLayout row="3" *ngIf="selectedRoute == 'loading' ? true : false" verticalAlignment="center">
+                        <ActivityIndicator busy="true" class="activity-indicator" color="black"></ActivityIndicator>
+                    </GridLayout>
+
+                </GridLayout>
+            </ScrollView>
+            <GridLayout verticalAlignment="bottom"
+                [visibility]="selectedRoute == 'command' || selectedRoute == 'code' ||  selectedRoute == 'confirm' ? 'visible' : 'collapse'"
+                row="1" columns="*,*" borderTopWidth="0.5" borderTopColor="gray" class="command-total-holder"
+                backgroundColor="#FFB73D">
+                <Label text="{{commandTotal}} DT" *ngIf="selectedRoute != 'code'" col="0" class="fa android-lbl"
+                    fontSize="20" textAlignment="center" verticalAlignment="center" horizontalAlignment="left"
+                    marginTop="10" marginLeft="20" color="white"></Label>
+                <Label text="Refer a freind" *ngIf="selectedRoute == 'code'" col="0" class="fa android-lbl"
+                    fontSize="20" textAlignment="center" verticalAlignment="center" horizontalAlignment="left"
+                    marginTop="10" marginLeft="20" color="white"></Label>
+
+                <StackLayout col="1" *ngIf="selectedRoute == 'command'" marginTop="10" marginBottom="10"
+                    orientation="horizontal" horizontalAlignment="right" class="right button-location"
+                    backgroundColor="#fff" borderWidth="1" borderColor="#FFB73D" height="50" verticalAlignment="center"
+                    marginRight="20" (tap)="passCommand()">
+
+
+                    <Label text="Confirm" class="location-text" color="#FFB73D" marginLeft="10"
+                        verticalAlignment="center"></Label>
+                    <Label text="&#xf0da;" fontSize="24" marginLeft="10" marginRight="10" color="#FFB73D" class="fa"
+                        verticalAlignment="center" horizontalAlignment="center"></Label>
+                </StackLayout>
+                <StackLayout col="1" *ngIf="selectedRoute == 'code'" marginTop="10" marginBottom="10"
+                    orientation="horizontal" horizontalAlignment="right" class="right button-location"
+                    backgroundColor="#fff" borderWidth="1" borderColor="#FFB73D" height="50" verticalAlignment="center"
+                    marginRight="20" (tap)="copyClip()">
+
+
+                    <Label text="Copy" class="location-text" color="#FFB73D" marginLeft="10" verticalAlignment="center"
+                        horizontalAlignment="center"></Label>
+
+                </StackLayout>
+                <StackLayout col="1" *ngIf="selectedRoute == 'confirm'" marginTop="10" marginBottom="10"
+                    orientation="horizontal" horizontalAlignment="right" class="right button-location"
+                    backgroundColor="#fff" borderWidth="1" borderColor="#FFB73D" height="50" verticalAlignment="center"
+                    marginRight="20" (tap)="setCommand()">
+
+
+                    <Label text="Proceed" class="location-text" color="#FFB73D" marginLeft="10"
+                        verticalAlignment="center"></Label>
+                    <Label text="&#xf0da;" fontSize="24" marginLeft="10" marginRight="10" color="#FFB73D" class="fa"
+                        verticalAlignment="center" horizontalAlignment="center"></Label>
+                </StackLayout>
+
+
+
+            </GridLayout>
+        </GridLayout>
+
+    </StackLayout>
+</RadSideDrawer>
+
+<!-- <GridLayout row="0" columns="auto,auto, *, auto">
+               <GridLayout rows="auto, auto" columns="*" col="0" textAlignment="center" marginLeft="10"
+                    verticalAlignment="center" horizontalAlignment="center">
+        
+                    <Label text="&#xf07a;" row="0" col="0" rowSpan="2" verticalAlignment="top" class="fa android-lbl"
+                        fontSize="25"></Label>
+                    <Label row="0" col="0" rowSpan="2" text="0" borderRadius="100%" width="20"
+                        style="background: #ff4b60; color: white; margin-top: 5;margin-left:25" verticalAlignment="top"
+                        horizontalAlignment="right" textAlignment="center"></Label>
+                </GridLayout>
+                
+                <Label col="1" text="&#xf002;" *ngIf="selectedRoute == 'search'" class="fa" fontSize="25"
+                    verticalAlignment="center" padding="10" color="black"></Label>
+                <Label *ngIf="selectedRoute == 'search'" col="2" text="Search" fontSize="20" verticalAlignment="center"
+                    padding="10"></Label>
+                <Label col="3" text="&#xf0c0;" class="fa" fontSize="25" verticalAlignment="center" padding="10" color="black"
+                    (tap)="onNavtap('code', '5')"
+                    [ngClass]="{tabselected : isSelected == '5'? true : false, tabnotselected : isselected != '5'? false: true}"></Label>
+            </GridLayout>-->

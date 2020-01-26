@@ -1,0 +1,324 @@
+.time-page{
+    /**/
+  background-position: center;
+  background-size: cover;
+  margin:-25;
+  padding-left:40;
+  padding-right:40;
+  height:100%;
+}
+
+.side-container{
+    margin:10;
+    margin-left:10;
+}
+.text-time{
+    color:#000;
+    font-family: "semplicita-medium";
+    font-size:18;
+    margin-top:50;
+    margin-bottom: 25;
+   
+}
+.profile-text{
+    font-family: "semplicita-medium";
+    color:#000;
+    font-size:17;
+    margin-left:15;
+   }
+   .bolder-text{
+       font-weight:600;
+       margin-bottom: 20;
+       color:white;
+   }
+.imgheaderown {
+    height: 70;
+    width: 70;
+    }
+    
+    .imgheader {
+    height: 60;
+    width: 60;
+    }
+    
+    .shisown {
+    border-bottom-width: 2;
+    border-bottom-color: white;
+    }
+    
+    .followreq-image {
+    color: #dfdfdf;
+    height: 60;
+    width: 60;
+    font-size: 60;
+    padding: 0;
+    margin-bottom: 5;
+    margin-top: 20;
+    }
+    
+    .tabselected {
+    color: #ff4b60;
+    }
+    
+    .tabnotselected {
+    color: black;
+    }
+    .back-cat{
+        z-index:9;
+        
+    }
+    .products-holder{
+        z-index:8;
+    }
+    .back-prod{
+        padding:25;
+    }
+    .pub-title{
+      color:#000;
+      font-size:26;
+      font-weight: bold;
+      word-wrap: break-word;
+      text-align: center;
+    }
+    .pub-second{
+      color:#000;
+      font-size:18;
+      font-weight: 500;
+      word-wrap: break-word;
+      text-align: center;
+    }
+    .pub-third{
+        color:#000;
+        font-size:14;
+        margin-top:20;
+        word-wrap: break-word;
+        text-align: center;
+
+    }
+    .product-stack{
+        background:rgba(0, 0, 0,0.1);
+        width:100%;
+
+    }
+    .flag{
+        width:40;
+        height:40;
+    }
+    .add-prod{
+        background:#ffc107;
+        padding:10;
+    }
+    .pub{
+
+    }
+
+       .button-location{
+           background-color: #FFB73D;
+           color:white;
+           border-radius:14;
+           
+       }
+       .left{
+        horizontal-align:left;
+    }
+    .right{
+        horizontal-align:right;
+    }
+    .image-profile{
+        height:50;
+        width:50;
+        border-radius:50%;
+        object-fit: cover;
+        border-width: 1;
+        border-color: #FFB73D;
+    }
+    .location-text{
+        color:white;
+        font-size:16;
+        font-family: "SimpM";
+        margin-top:5;
+        margin-bottom: 5;
+        margin-left:0;
+        margin-right:10;
+        
+    }
+    .pin-location{
+        margin-top:0;
+        margin-bottom: 0;
+        margin-left:10;
+        margin-right:2;
+    }
+    .titles{
+        font-size:16;
+        font-weight: bold;
+        color:#000;
+    }
+
+
+
+
+
+    button {
+        font-size: 15;
+        horizontal-align: center;
+    }
+    .drawerContentText {
+        font-size: 13;
+        padding: 10;
+    }
+    .drawerContentButton {
+        margin: 10;
+        horizontal-align: left;
+    }
+    
+    .sideStackLayout {
+        background-color: #FFB73D;
+    }
+    .sideTitleStackLayout {
+        text-align: center;
+        vertical-align: center;
+    }
+    
+    .sideLabel {
+        padding: 5;
+        padding-left:10;
+        color:#000;
+        font-size:18;
+        font-weight: bold;
+        margin:9;
+    }
+    .sideLightGrayLabel {
+        background-color: #FFB73D;
+    }
+    .button-drawer-location{
+        background-color: white;
+        color:#FFB73D;
+        border-radius:14;
+        margin-left:10;
+        margin-top:15;
+        
+    }
+    .location-drawer-text{
+        color:#FFB73D;
+        font-size:20;
+        font-family: "SimpM";
+        margin:15;
+        margin-top:5;
+        margin-bottom: 5;
+        margin-left:8;
+    }
+    .pin-drawer-location{
+        margin:15;
+        margin-top:5;
+        margin-bottom: 5;
+    }
+
+    .search-bar{
+        background-color:#EFEFEF;
+        border-radius:11;
+    }
+    .form-input {
+        margin-left: 10;
+        margin-right: 20;
+        margin-top: 0;
+        padding: 10;
+        placeholder-color:rgba(207, 207, 207, 1);
+        background-color: rgba(241, 241, 241, 0.6);
+        font-size: 14;
+      }
+      .less-plus{
+        background-color:#FFB73D;
+        color:white;
+        border-radius: 11;
+        font-size:18;
+        margin:5;
+        padding:0 6 0 6;
+    }
+    .less{
+        background-color:#FFB73D;
+        color:white;
+        border-radius: 11;
+        font-size:16;
+        margin:5;
+        padding:0 6 0 6;
+    }
+    .item-nbr{
+        color:#000000;
+        font-size:12;
+        margin:2;
+        font-family: "semplicita-medium";
+    }
+
+    .last-page{
+        background-position: center;
+        background-size: cover;
+    }
+    .l-text{
+        color:#000;
+        font-size:18;
+        
+        
+    }
+    .button-l{
+        background-color: #FFB73D;
+        color:#000;
+        border-radius:14;
+        
+    }
+    .command-total-holder{
+        background-color:#FFB73D;
+    }
+    .prod-msg{
+        font-weight: bold;
+        font-size:20;
+        color:#000;
+    }
+.prodisappear{
+    animation-name: cexample;
+  animation-duration: 4s;
+  animation-fill-mode: forwards;
+  visibility: collapse;
+  transition: visibility 0s linear 300ms;
+}
+.prodanim{
+
+  animation-name: example;
+  animation-duration: 1s;
+}
+    @keyframes example {
+        0%   { transform: translate(0, -50); }
+        100% {transform: translate(0, 0); }
+      }
+      @keyframes cexample {
+        0%   { transform: translate(0, 0); }
+        100% {transform: translate(0, -50);opacity: 0; }
+      }
+.form-holder{
+    margin:10;
+    width:100%;
+    background-color: rgba(241, 241, 241, 0.7);
+
+}  
+.form-input-last{
+    border-bottom-width: 1;
+    border-bottom-color: transparent;
+    width:100%;
+    text-align: left;
+    placeholder-color:rgba(0, 0, 0,0.5);
+    font-size:16;
+}  
+.form-ico{
+    color:#FFB73D;
+}  
+.command-text{
+    color:#000;
+    font-weight:500;
+    font-size:18;
+}
+.bold-family{
+    font-weight: bold;
+    font-size:20;
+}
+.checkout{
+    font-weight: bold;
+}

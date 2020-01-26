@@ -1,0 +1,75 @@
+<ActionBar title="Home" class="action-bar">
+    <StackLayout orientation="horizontal" ios:horizontalAlignment="center" android:horizontalAlignment="center">
+        <Label text="Minimalism" class="action-label"></Label>
+    </StackLayout>
+</ActionBar>
+
+
+<ScrollView orientation="vertical">
+
+    <StackLayout orientation="vertical" class="main">
+        <StackLayout class="logo-holder">
+            <Image width="140" class="vod-logo" src="~/app/login/vod.png"></Image>
+            <Image #logo class="vod-logo-fisfis" src="~/app/login/fisfisman.png"></Image>
+            <Label text="Welcome to Fisfis" class="welcome"></Label>
+            <Label text="Groceries at your door step !" class="welcome-second"></Label>
+        </StackLayout>
+        <StackLayout class="after-logo-holder"></StackLayout>
+
+        <StackLayout #circle width="100" height="100" class="login-done" orientation="horizontal"></StackLayout>
+        <StackLayout *ngIf="error">
+            <Label text="{{errorMsg}}" class="text-error"></Label>
+        </StackLayout>
+        <StackLayout [visibility]="navigating ? 'collapsed' : 'visible'" orientation="horizontal"
+            class="reg-log-container">
+            <Label text="L L O G I N" (tap)="setToLogin()"
+                [ngClass]="[isLogin ? 'reg-active' : 'reg-deactive']"></Label>
+            <Label text=" | " class="reg-separator"></Label>
+            <Label text="R E G I S T E R" (tap)="setToRegister()"
+                [ngClass]="[!isLogin ? 'reg-active' : 'reg-deactive']"></Label>
+        </StackLayout>
+
+
+        <StackLayout [visibility]="navigating ? 'collapsed' : 'visible'" orientation="vertical" class="form-container"
+            [ngClass]="[formSubmitted ? 'form-container-submitted' : 'form-container']">
+            <TextField *ngIf="isLogin" [(ngModel)]="email" hint="Fisfis@gmail.com" class="form-input"
+                textAlignment="center">
+            </TextField>
+            <TextField *ngIf="isLogin" [(ngModel)]="password" hint="Password" secure="true" class="form-input"
+                textAlignment="center">
+
+            </TextField>
+            <Button *ngIf="isLogin" (touch)="onFocus($event)" #btn text="{{loginTxt}}" (tap)="onButtonTap()"
+                class="form-button"></Button>
+            <StackLayout orientation="vertical" [formGroup]="userForm" [visibility]="!isLogin ? 'visible' : 'collapse'"
+                #item>
+
+                <TextField class="form-input" hint="Full Name" formControlName="fname"></TextField>
+                <TextField class="form-input" hint="Email" formControlName="email"></TextField>
+                <TextField class="form-input" hint="Phone Number" formControlName="phone_number"></TextField>
+                <TextField secure="true" hint="Password" class="form-input" formControlName="password"></TextField>
+                <TextField secure="true" hint="Repeat Password" class="form-input" formControlName="cpassword">
+                </TextField>
+                <TextField class="form-input" hint="VIP Pass" formControlName="pass"></TextField>
+
+
+            </StackLayout>
+            <Button *ngIf="!isLogin" (touch)="onFocus($event)" #btn text="{{loginTxt}}" (tap)="onButtonTap()"
+                class="form-button"></Button>
+            <StackLayout orientation="horizontal" horizontalAlignment="center" marginBottom="20">
+
+                <Image *ngIf="lng_drapeau" src="~/app/login/uk-gray.png" height="50" width="50"></Image>
+                <Image *ngIf="!lng_drapeau" src="~/app/login/uk.png" height="50" width="50"></Image>
+                <Switch backgroundColor="#FFB73D" style="margin-left:15" checked="true"
+                    (checkedChange)="onCheckedChange($event)"></Switch>
+                <Image *ngIf="lng_drapeau" src="~/app/login/fr.png" height="50" width="50"></Image>
+                <Image *ngIf="!lng_drapeau" src="~/app/login/fr-gray.png" height="50" width="50"></Image>
+            </StackLayout>
+
+        </StackLayout>
+
+        <!-- <AbsoluteLayout [visibility]="navigating ? 'collapsed' : 'visible'">
+            <Image left="220" top="-25" width="150" height="150" src="~/app/login/01.jpg"></Image>
+        </AbsoluteLayout>-->
+    </StackLayout>
+</ScrollView>

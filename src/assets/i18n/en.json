@@ -1,0 +1,16 @@
+{
+    "REGISTER":{
+        "CODEONE":"Please provide your subscription",
+        "CODETWO":"code."
+       },
+       "LOGIN":{
+           "TEXTONE":"Welcome to Fisfis",
+           "TEXTTWO":"Groceries at your door step!",
+           "PASSWORDHINT":"Password",
+           "FORGOT":"Forgot ?",
+           "SIGN":"Sign In",
+           "CODE":"Grab a code then",
+           "REGISTER":"Sign up"
+       }      
+       
+}

@@ -1,0 +1,15 @@
+{
+    "REGISTER":{
+        "CODEONE":"Veuillez saisir votre code de",
+        "CODETWO":"souscription"
+       },
+       "LOGIN":{
+           "TEXTONE":"Bienvenue a Fisfis",
+           "TEXTTWO":"Vos courses au pied de votre porte!",
+           "PASSWORDHINT":"Mot de passe",
+           "FORGOT":"Oublié ?",
+           "SIGN":"Connexion",
+           "CODE":"Préparez votre code et",
+           "REGISTER":"Inscrivez vous"
+       }  
+}
