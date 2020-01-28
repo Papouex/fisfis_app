@@ -1,3 +1,18 @@
+ <!--
+     THIS PAGE IS DEVIDED INTO :
+      *ACTION BAR 
+      *RAD SIDE DRAWER : Navigation
+      *RAD SIDE DRAWER CONTENT :
+        HOME SCREEN 'search' in selected route
+      , Products Screen
+      , Confirm screen (Showing list of products and total)
+      , Last screen command form
+      , Profile screen (user profile)
+      , Code screen (generating referal codes)
+      , Contact screen
+      , Notifications screen
+      , Past screen
+     *Bottom bar (show only in products, confirm and code screens)-->
 <ActionBar backgroundColor="#FFB73D">
     <GridLayout columns="auto,*,auto" orientation="horizontal" ios:padding="0 10" height="100%" width="100%">
         <Label text="&#xf036;" class="fa" fontSize="25" col="0" color="white" textAlignment="center"
@@ -72,7 +87,6 @@
     <StackLayout tkMainContent>
         <GridLayout rows="*,auto">
             <ScrollView row="0">
-                <!--80 75 85-->
                 <GridLayout rows="*,*,*,*" columns="auto,*" class="page">
                     <GridLayout
                         [visibility]="selectedRoute == 'search' || selectedRoute == 'code' || selectedRoute == 'confirm' || selectedRoute == 'past' || selectedRoute == 'profile' || selectedRoute == 'last' ? 'visible' : 'collapse'"
@@ -137,6 +151,7 @@
                             <Label text="Check historic" class="location-text"></Label>
                         </StackLayout>
                     </GridLayout>
+                   
                     <!--Home screen-->
                     <StackLayout row="3" rowSpan="2" colSpan="2" col="0"
                         [visibility]="selectedRoute == 'search' ? 'visible' : 'collapse'">
@@ -155,15 +170,6 @@
                                     [text]="pub.third_title"></Label>
 
                             </GridLayout>
-                            <!-- <Label class="titles mar" text="Saved cart" margin="10"></Label>
-                            <GridLayout borderWidth="1" (tap)="setSavedCommand()" borderColor="#FFB73D" borderRadius="20%" margin="20">
-                                <Label text="&#xf291;" fontSize="30" class="fa" margin="20" color="#FFB73D"
-                                    textAlignment="center" verticalAlignment="center"
-                                    horizontalAlignment="center"></Label>
-                            </GridLayout> -->
-
-                            <!--<Image  borderColor="white" borderWidth="1"
-                                [src]="baseUrl+''+item.imageSrc" [height]="photoHeight" [width]="photoWidth" stretch="aspectFill"></Image>-->
                             <StackLayout *ngIf="!prody && preCommands" orientation="vertical" marginTop="10"
                                 marginBottom="10" marginLeft="10">
                                 <Label class="titles mar" text="Prepared Command"></Label>
@@ -204,34 +210,8 @@
                                     paddingLeft="10" paddingRight="10" borderColor="gray" verticalAlignment="center"
                                     horizontalAlignment="left" marginLeft="20"></Label>
                             </GridLayout>
-                            <!-- <StackLayout *ngIf="!prody && preCommands" orientation="vertical" marginTop="10"
-                                    marginBottom="10" marginLeft="10">
-                                    <Label class="titles mar" text="Past Commands"></Label>
-                                    <ScrollView orientation="horizontal" scrollBarIndicatorVisible="false">
-                                        <StackLayout horizontalAlignment="left" orientation="horizontal">
-    
-                                            <GridLayout *ngFor="let command of preCommands; let i=index" rows="auto, auto"
-                                                style="margin: 10;">
-                                                <StackLayout (tap)="preCommand(command)" class="cat-img-holder"
-                                                    orientation="horizontal" backgroundColor="#EFEFEF" borderRadius="10%">
-                                                    <Image row="0" [src]="command.imageSrc" verticalAlignment="center"
-                                                        horizontalAlignment="center" stretch="aspectFill" class="imgheader">
-                                                    </Image>
-                                                    <StackLayout orientation="vertical" style="margin:20;">
-                                                        <Label class="command-name" text="{{ command.name }}"></Label>
-                                                        <Label class="command-price" horizontalAlignment="right"
-                                                            text="{{ formatUserNumber(command.total) }} DT"></Label>
-                                                    </StackLayout>
-    
-                                                </StackLayout>
-                                                <Label class="fa" fontSize="25" verticalAlignment="top" padding="10"
-                                                    color="black" text="&#xf1f8;" (tap)="deleteCommand(command)"
-                                                    horizontalAlignment="right"></Label>
-                                            </GridLayout>
-                                        </StackLayout>
-                                    </ScrollView>
-                                </StackLayout>-->
-                        </StackLayout>
+                          
+                            </StackLayout>
 
                     </StackLayout>
                     <!--Products screen-->
@@ -441,7 +421,6 @@
                                 (tap)="deleteProduct(item)" color="red"></Label>
                         </GridLayout>
                     </StackLayout>
-
                     <!--Last screen-->
                     <StackLayout row="1" rowSpan="5" col="0" colSpan="2"
                         [visibility]="selectedRoute == 'last' ? 'visible' : 'collapse'">
@@ -717,7 +696,7 @@
                             <StackLayout>
 
                                 <GridLayout rows="auto, auto" columns="10, *"
-                                    *ngFor="let item of instagram.notifications">
+                                    *ngFor="let item of notif.notifications">
                                     <Label row="0" col="1" [text]="item.notify_time" marginTop="20" marginBottom="20"
                                         color="#4c4c4c"></Label>
 
@@ -747,7 +726,6 @@
                             </StackLayout>
                         </ScrollView>
                     </GridLayout>
-                    <!--&#xf291;-->
                     <!--Past screen-->
                     <StackLayout row="1" rowSpan="4" height="100%" colSpan="2" col="0"
                         [visibility]="selectedRoute == 'past' ? 'visible' : 'collapse'" orientation="vertical"
@@ -838,22 +816,3 @@
     </StackLayout>
 </RadSideDrawer>
 
-<!-- <GridLayout row="0" columns="auto,auto, *, auto">
-               <GridLayout rows="auto, auto" columns="*" col="0" textAlignment="center" marginLeft="10"
-                    verticalAlignment="center" horizontalAlignment="center">
-        
-                    <Label text="&#xf07a;" row="0" col="0" rowSpan="2" verticalAlignment="top" class="fa android-lbl"
-                        fontSize="25"></Label>
-                    <Label row="0" col="0" rowSpan="2" text="0" borderRadius="100%" width="20"
-                        style="background: #ff4b60; color: white; margin-top: 5;margin-left:25" verticalAlignment="top"
-                        horizontalAlignment="right" textAlignment="center"></Label>
-                </GridLayout>
-                
-                <Label col="1" text="&#xf002;" *ngIf="selectedRoute == 'search'" class="fa" fontSize="25"
-                    verticalAlignment="center" padding="10" color="black"></Label>
-                <Label *ngIf="selectedRoute == 'search'" col="2" text="Search" fontSize="20" verticalAlignment="center"
-                    padding="10"></Label>
-                <Label col="3" text="&#xf0c0;" class="fa" fontSize="25" verticalAlignment="center" padding="10" color="black"
-                    (tap)="onNavtap('code', '5')"
-                    [ngClass]="{tabselected : isSelected == '5'? true : false, tabnotselected : isselected != '5'? false: true}"></Label>
-            </GridLayout>-->

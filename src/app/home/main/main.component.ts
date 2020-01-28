@@ -45,129 +45,15 @@ export interface ItemCommande {
 })
 export class MainComponent implements OnInit, AfterViewInit,OnDestroy {
     
-
-
-
-    //@ViewChild("subcats", { static: false }) subcatsItem:ElementRef;
-    //subItem:View;
     photoWidth: number = screen.mainScreen.widthDIPs * 0.33333;
     photoHeight: number = this.photoWidth;
     selectedRoute: string = 'search';
     command: any;
     hours: Array<String> = ["15min", "30min", "1 Heure", "2 Heures", "3 Heures"]
     baseUrl = "http://stark-sands-45193.herokuapp.com"
-    //instagram: any[] = [];
     categories: any[] = [];
-    instagram: any = {
-        search: {
-            header: [
-                {
-                    isOwn: true,
-                    imageSrc: "https://cdn.pixabay.com/photo/2018/05/03/22/34/lion-3372720__480.jpg",
-                    title: "For You"
-                },
-                {
-                    isOwn: false,
-                    imageSrc: "https://cdn.pixabay.com/photo/2018/09/12/12/14/photographer-3672010__480.jpg",
-                    title: "Style"
-                },
-                {
-                    isOwn: false,
-                    imageSrc: "https://cdn.pixabay.com/photo/2018/11/23/14/19/forest-3833973__480.jpg",
-                    title: "Fitness"
-                },
-                {
-                    isOwn: false,
-                    imageSrc: "https://cdn.pixabay.com/photo/2018/04/04/10/11/portrait-3289372__480.jpg",
-                    title: "Comics"
-                },
-                {
-                    isOwn: false,
-                    imageSrc: "https://cdn.pixabay.com/photo/2018/11/06/14/01/pair-3798371__480.jpg",
-                    title: "Beauty"
-                },
-                {
-                    isOwn: false,
-                    imageSrc: "https://cdn.pixabay.com/photo/2018/11/17/22/15/tree-3822149__480.jpg",
-                    title: "Travel"
-                },
-                {
-                    isOwn: false,
-                    imageSrc: "https://cdn.pixabay.com/photo/2018/11/04/20/21/harley-davidson-3794909__480.jpg",
-                    title: "Science & Tech"
-                },
-                {
-                    isOwn: false,
-                    imageSrc: "https://cdn.pixabay.com/photo/2018/11/15/22/52/wolf-3818343__480.jpg",
-                    title: "Shopping"
-                },
-                {
-                    isOwn: false,
-                    imageSrc: "https://cdn.pixabay.com/photo/2018/12/09/14/44/leaf-3865014__480.jpg",
-                    title: "Decor"
-                },
-                {
-                    isOwn: false,
-                    imageSrc: "https://cdn.pixabay.com/photo/2018/07/16/13/17/kiss-3541905__480.jpg",
-                    title: "Music"
-                }
-            ],
-            body: [
-                {
-                    imageSrc: "https://cdn.pixabay.com/photo/2018/09/12/12/14/photographer-3672010__480.jpg"
-                },
-                {
-                    imageSrc: "https://cdn.pixabay.com/photo/2018/12/29/23/49/rays-3902368__480.jpg"
-                },
-                {
-                    imageSrc: "~/assets/face2.jpg"
-                },
-                {
-                    imageSrc: "https://cdn.pixabay.com/photo/2018/11/06/14/01/pair-3798371__480.jpg"
-                },
-                {
-                    imageSrc: "https://cdn.pixabay.com/photo/2018/12/09/14/44/leaf-3865014__480.jpg"
-                },
-                {
-                    imageSrc: "https://cdn.pixabay.com/photo/2018/07/16/13/17/kiss-3541905__480.jpg"
-                },
-                {
-                    imageSrc: "https://cdn.pixabay.com/photo/2018/11/15/22/52/wolf-3818343__480.jpg"
-                },
-                {
-                    imageSrc: "https://cdn.pixabay.com/photo/2018/12/29/23/49/rays-3902368__480.jpg"
-                },
-                {
-                    imageSrc: "https://cdn.pixabay.com/photo/2018/11/06/14/01/pair-3798371__480.jpg"
-                },
-                {
-                    imageSrc: "https://cdn.pixabay.com/photo/2018/12/09/14/44/leaf-3865014__480.jpg"
-                },
-                {
-                    imageSrc: "https://cdn.pixabay.com/photo/2018/11/17/22/15/tree-3822149__480.jpg"
-                },
-                {
-                    imageSrc: "https://cdn.pixabay.com/photo/2018/10/05/22/53/sheep-3727049__480.jpg"
-                },
-                {
-                    imageSrc: "https://cdn.pixabay.com/photo/2018/11/29/21/19/hamburg-3846525_1280.jpg"
-                },
-                {
-                    imageSrc: "https://cdn.pixabay.com/photo/2018/11/06/14/01/pair-3798371__480.jpg"
-                },
-                {
-                    imageSrc: "https://cdn.pixabay.com/photo/2018/12/29/23/49/rays-3902368__480.jpg"
-                },
-                {
-                    imageSrc: "https://cdn.pixabay.com/photo/2018/11/15/22/52/wolf-3818343__480.jpg"
-                }
-            ],
-            midSection: {
-                imgSrc: "https://www.gettyimages.com/gi-resources/images/CreativeLandingPage/HP_Sept_24_2018/CR3_GettyImages-159018836.jpg",
-                imgSrc1: "https://cdn.pixabay.com/photo/2018/11/17/22/15/tree-3822149__480.jpg",
-                imgSrc2: "https://cdn.pixabay.com/photo/2018/05/03/22/34/lion-3372720__480.jpg"
-            }
-        },
+     //TEST DATA FOR NOTIFICATION
+    notif: any = {
         notifications: [
             {
                 notify_time: "Yesterday",
@@ -244,6 +130,7 @@ export class MainComponent implements OnInit, AfterViewInit,OnDestroy {
             }
         ]
     }
+    //END TEST DATA
     lng:string;
     filteredProducts:any=[];
     suby: boolean = false;
@@ -278,34 +165,6 @@ export class MainComponent implements OnInit, AfterViewInit,OnDestroy {
     @ViewChild(RadSideDrawerComponent, { static: true }) public drawerComponent: RadSideDrawerComponent;
     private drawer: RadSideDrawer;
 
-    private photos: string[] = [
-        'https://cdn1.medicalnewstoday.com/content/images/articles/322/322868/golden-retriever-puppy.jpg',
-        'https://www.gettyimages.com/gi-resources/images/CreativeLandingPage/HP_Sept_24_2018/CR3_GettyImages-159018836.jpg',
-        'https://cdn.pixabay.com/photo/2018/09/22/17/05/ara-3695678__480.jpg',
-        'https://cdn.pixabay.com/photo/2018/09/25/21/54/hedgehog-3703244__480.jpg',
-        'https://cdn.pixabay.com/photo/2018/09/26/21/24/sweet-corn-3705687__480.jpg'
-    ];
-
-    private photoExamples: string[] = [
-        'https://cdn.pixabay.com/photo/2018/12/29/23/49/rays-3902368__480.jpg',
-        'https://cdn.pixabay.com/photo/2018/08/06/16/30/mushroom-3587888__480.jpg',
-        'https://cdn.pixabay.com/photo/2018/12/28/01/34/rum-3898745__480.jpg',
-        'https://cdn.pixabay.com/photo/2018/07/16/13/17/kiss-3541905__480.jpg',
-        'https://cdn.pixabay.com/photo/2018/12/09/14/44/leaf-3865014__480.jpg',
-        'https://cdn.pixabay.com/photo/2018/09/12/12/14/photographer-3672010__480.jpg',
-        'https://cdn.pixabay.com/photo/2018/11/11/16/51/ibis-3809147_1280.jpg',
-        'https://cdn.pixabay.com/photo/2018/11/29/21/19/hamburg-3846525_1280.jpg',
-        'https://cdn.pixabay.com/photo/2018/11/04/20/21/harley-davidson-3794909__480.jpg',
-        'https://cdn.pixabay.com/photo/2018/11/23/14/19/forest-3833973__480.jpg',
-        'https://cdn.pixabay.com/photo/2018/11/17/22/15/tree-3822149__480.jpg',
-        'https://cdn.pixabay.com/photo/2018/11/06/14/01/pair-3798371__480.jpg',
-        'https://cdn.pixabay.com/photo/2018/11/15/22/52/wolf-3818343__480.jpg',
-        'https://cdn.pixabay.com/photo/2018/10/31/22/42/surprised-3786845__480.jpg',
-        'https://cdn.pixabay.com/photo/2018/05/03/22/34/lion-3372720__480.jpg',
-        'https://cdn.pixabay.com/photo/2018/10/05/22/53/sheep-3727049__480.jpg',
-        'https://cdn.pixabay.com/photo/2018/04/04/10/11/portrait-3289372__480.jpg',
-        '',
-    ];
     constructor(private page: Page, private categorieService: CategorieService,
         private productService: ProductsService, private userService: UserService,
         private adsService: AdsService, private cd: ChangeDetectorRef, private _datePipe: DatePipe
@@ -318,7 +177,9 @@ export class MainComponent implements OnInit, AfterViewInit,OnDestroy {
     ngOnInit() {
         this.getDeviceLocation();
         this.mainContentText = "context";
-        console.log("hihahaha")
+        /**Below : Saved cart, when user leaves the app current cart products must be saved
+         * I tried to save it in local storage when ng on destroy then getting it back it didn't work
+         */
         //this.userService.emptyCommandData();
         //this.userService.getCommandData();
         if(this.userService.getCommandData()!=null)
@@ -330,6 +191,13 @@ export class MainComponent implements OnInit, AfterViewInit,OnDestroy {
 
             this.savedCommand=this.command_products;
         }
+
+        /**
+         * For now i'm getting all the data here, once in deployement, you will have
+         * to get all data from server with forkJoin and store it in local storage
+         * Like that, we won't fetch database each time
+         * And if user don't have internet add layout You have no internet
+         */
         this.categorieService.getCategories().subscribe((res: any) => {
             if (res.success) {
                 this.categories = res.obj;
@@ -349,7 +217,7 @@ export class MainComponent implements OnInit, AfterViewInit,OnDestroy {
                 toast.show();
             }
         })
-        
+        //Get publicité
         this.adsService.getAds().subscribe((res: any) => {
             if (res.success) {
                 this.pub = res.obj[0];
@@ -362,6 +230,7 @@ export class MainComponent implements OnInit, AfterViewInit,OnDestroy {
         this.user = this.userService.getUserData();
         this.zone = this.user.zone;
         this.lng=this.user.prefered_lng;
+        //Getting past commands of user
         this.commandService.getCommandByUserId(this.user.id).subscribe((res: any) => {
             this.pastCommands = res;
         },(err)=>{
@@ -369,6 +238,7 @@ export class MainComponent implements OnInit, AfterViewInit,OnDestroy {
                 toast.show();
         }
         )
+        //Getting user prepared commands
         this.precommandService.getPrecommand(this.user.id).subscribe((res: any) => {
             if (res.success) {
                 this.preCommands = res.obj;
@@ -377,6 +247,7 @@ export class MainComponent implements OnInit, AfterViewInit,OnDestroy {
                 toast.show();
             }
         })
+        //Getting user generated vip passes
         this.passService.getPassByCreator(this.user.id).subscribe((res: any) => {
             if (res.success) {
                 this.passes = res.obj;
@@ -385,6 +256,7 @@ export class MainComponent implements OnInit, AfterViewInit,OnDestroy {
                 toast.show();
             }
         })
+        //Getting opening time and closing time and list of locations eli yekhdmou aalehom
         this.generalService.getGeneral().subscribe((res:any)=>{
            if(res.success)
            {
@@ -397,12 +269,12 @@ export class MainComponent implements OnInit, AfterViewInit,OnDestroy {
         })
     }
     ngAfterViewInit() {
-        //this.subItem = this.subcatsItem.nativeElement;
         this.drawer = this.drawerComponent.sideDrawer;
         this.cd.detectChanges();
     }
     ngOnDestroy(): void {
         console.log("destroy called")
+        //Saving current command in localstorage (not working)
         if(this.command_products && this.command_products.length > 0)
         {
             console.log("saved command")
@@ -425,7 +297,7 @@ export class MainComponent implements OnInit, AfterViewInit,OnDestroy {
         }
     }
 
-
+   /**DRAWER CODE START (SIDE NAVIGATION) */
     get mainContentText() {
         return this._mainContentText;
     }
@@ -441,48 +313,6 @@ export class MainComponent implements OnInit, AfterViewInit,OnDestroy {
     public closeDrawer() {
         this.drawer.closeDrawer();
     }
-    onCheckedChange(args: EventData) {
-        let sw = args.object as Switch;
-        let isChecked = sw.checked;
-        this.lng_drapeau = isChecked;
-        if (isChecked) {
-            //savedValues.getInstance().setLang("en");
-            this.lng = "en";
-            this.translate.use(this.lng);
-            
-            console.log("hello")
-
-        } else {
-            this.lng = "fr";
-            //savedValues.getInstance().setLang("fr");
-            this.translate.use(this.lng);
-        }
-
-    }
-
-    /**PRODUCTS CODE */
-    showSub(item, i) {
-        this.prody = false;
-        this.subies = item;
-        this.index = i;
-        this.chosenProducts = [];
-        this.showProducts(0, this.subies.subcats[0]);
-
-    }
-    showProducts(i, sub) {
-
-        this.indexSub = i;
-        this.showProd = !this.showProd;
-        if (sub.products) {
-            this.chosenProducts = this.products.filter(x => sub.products.findIndex(item => item.product === x._id) != -1);
-        } else {
-            this.chosenProducts = [];
-            this.prodMsg = "No products in this categorie"
-        }
-
-        this.prody = !this.prody;
-    }
-
     onNavtap(route: string, selectedTab: string) {
         this.closeDrawer();
         this.isSelected = selectedTab;
@@ -505,9 +335,50 @@ export class MainComponent implements OnInit, AfterViewInit,OnDestroy {
         }
         this.cd.detectChanges();
     }
-    formatUserNumber(num) {
-        return this.formatPipe.transform(num);
+    /**END NAVIGATION CODE */
+    /**ON LANGUAGE CHANGE CHECKED */
+    onCheckedChange(args: EventData) {
+        let sw = args.object as Switch;
+        let isChecked = sw.checked;
+        this.lng_drapeau = isChecked;
+        if (isChecked) {
+            //savedValues.getInstance().setLang("en");
+            this.lng = "en";
+            this.translate.use(this.lng);
+            
+            console.log("hello")
+
+        } else {
+            this.lng = "fr";
+            //savedValues.getInstance().setLang("fr");
+            this.translate.use(this.lng);
+        }
+
     }
+    /**END ON LANGUAGE CHANGE */
+
+    /**PRODUCTS CODE AND BUYING PROCESS */
+    showSub(item, i) {
+        this.prody = false;
+        this.subies = item;
+        this.index = i;
+        this.chosenProducts = [];
+        this.showProducts(0, this.subies.subcats[0]);
+
+    }
+    showProducts(i, sub) {
+
+        this.indexSub = i;
+        this.showProd = !this.showProd;
+        if (sub.products) {
+            this.chosenProducts = this.products.filter(x => sub.products.findIndex(item => item.product === x._id) != -1);
+        } else {
+            this.chosenProducts = [];
+            this.prodMsg = "No products in this categorie"
+        }
+
+        this.prody = !this.prody;
+    }  
     addProduct(item, isConfirm) {
         if (!isConfirm) {
             const resultat = this.command_products.findIndex(prod => prod.product === item._id);
@@ -548,13 +419,20 @@ export class MainComponent implements OnInit, AfterViewInit,OnDestroy {
             }
         }
     }
-
     calculTotal() {
         var tot = 0;
         for (let i = 0; i < this.command_products.length; i++) {
             tot += (this.command_products[i].prod_qte * this.command_products[i].prod_unit_price);
         }
         return tot;
+    }
+    returnQte(item) {
+        const resultat = this.command_products.findIndex(prod => prod.product === item._id);
+        if (resultat != -1) {
+            return this.command_products[resultat].prod_qte;
+        } else {
+            return 0;
+        }
     }
     deleteProduct(item) {
 
@@ -594,15 +472,28 @@ export class MainComponent implements OnInit, AfterViewInit,OnDestroy {
             }
         }
     }
-    deleteCommand(command)
-    {
-        this.precommandService.deletePrecommand(command._id).subscribe(res=>{
-            const resultat = this.preCommands.findIndex(command => command._id === command._id);
-           
-                    this.preCommands.splice(resultat, 1);
-                
-        })
+    //SEARCH BAR START
+    onSubmit(args) {
+        const searchBar = args.object as SearchBar;
+        console.log(`Searching for ${searchBar.text}`);
+        this.filteredProducts=this.products.filter(x=> x.name.indexOf(searchBar.text)!=-1)
+        console.log(this.filteredProducts);
+        this.cd.detectChanges();
     }
+    onTextChanged(args) {
+        const searchBar = args.object as SearchBar;
+        console.log(`Input changed! New value: ${searchBar.text}`);
+        this.filteredProducts=this.products.filter(x=> x.name.indexOf(searchBar.text)!=-1)
+        console.log(this.filteredProducts);
+        this.cd.detectChanges();
+    }
+    onClear(args) {
+        const searchBar = args.object as SearchBar;
+        console.log(`Clear event raised`);
+        this.filteredProducts=[];
+        this.cd.detectChanges();
+    }
+    //SEARCH BAR END
     passCommand() {
 
         if (this.command_products && this.command_products.length > 0) {
@@ -620,37 +511,7 @@ export class MainComponent implements OnInit, AfterViewInit,OnDestroy {
             
         }
     }
-
-
-
-    returnQte(item) {
-        const resultat = this.command_products.findIndex(prod => prod.product === item._id);
-        if (resultat != -1) {
-            return this.command_products[resultat].prod_qte;
-        } else {
-            return 0;
-        }
-    }
-
-
-
-    private getDeviceLocation(): Promise<any> {
-        return new Promise((resolve, reject) => {
-            Geolocation.enableLocationRequest().then(() => {
-                Geolocation.getCurrentLocation({ timeout: 10000 }).then(location => {
-                    this.http.get("http://api.bigdatacloud.net/data/reverse-geocode-client?latitude=" + location.latitude + "&longitude=" + location.longitude + "&localityLanguage=fr").subscribe((data: any) => {
-                        if (data.locality) {
-                            this.zone = data.locality;
-                        }
-                    })
-                    resolve(location);
-                }).catch(error => {
-                    reject(error);
-                });
-            });
-        });
-    }
-
+    //SET COMMAND FROM CONFIRM TO SEND
     setCommand() {
         this.isSelected = '8';
         this.selectedRoute = 'last';
@@ -700,7 +561,7 @@ export class MainComponent implements OnInit, AfterViewInit,OnDestroy {
                     toast.show();
         }
     }
-    //switch 5
+    //PICKING COMMAND TIME (BUG, time must be between opening and closing hour otherwise command not pass)
     public onSelectedIndexChanged(args: EventData) {
         const picker = <ListPicker>args.object;
         //picker.selectedIndex
@@ -755,85 +616,26 @@ export class MainComponent implements OnInit, AfterViewInit,OnDestroy {
             console.log("not ok")
         }
     }
-    onTimeChanged(args) {
-        const tp = args.object as TimePicker;
-
-        const time = args.value;
-        this.command.chosenTime = time;
-        let opening = new Date('12/31/1899 '+this.general.opening_hour);
-        let closing
-        if(this.isMidnight(this.general.closing_hour))
-        {
-            closing=new Date('12/31/1899');
-            closing.setHours(0,0,0,0)
-        }else{
-            closing=new Date('12/31/1899'+this.general.closing_hour);
-        }
-        
-        
-        //console.log(opening)
-        //console.log(this.command.chosenTime);
-    }
-
-    isMidnight(str:string)
-    {
-        let h=str.substr(0,2);
-        if(Number(h)==24)
-        {
-            return true;
-        }else{
-            return false;
-        }
-    }
-
-    updateUser() {
-        this.userService.updateUser(this.user, this.user.id).subscribe((res: any) => {
-            var toast = Toast.makeText("Success updating user !");
-            toast.show();
-        },(err)=>{
-            var toast = Toast.makeText("Error updating user");
-            toast.show();
-        })
-    }
-
-    verifyTime() {
-        
-        return true;
-    }
+    //Verify location depending on user current location and their list of locations they work on (not done)
     verifyLocation() {
         return true;
     }
+    /**END BUYING PROCESS */
 
-    generatePass() {
-        let x = this.passes.filter(x => x.isActive);
-        if (x.length <= 0) {
-            this.passService.ajouterPass({ creator: this.user.id }).subscribe((res: any) => {
-                if (res.success) {
-                    this.pass = res.obj;
-                    var toast = Toast.makeText("Pass has been generated !");
-                    toast.show();
-                } else {
-                    var toast = Toast.makeText("Try again later !");
-                    toast.show();
-                }
-            })
-        } else {
-           //Toast you already have an active pass
-           var toast = Toast.makeText("You already have an active pass");
-           toast.show();
-        }
-    }
-    savePass()
+
+
+
+    /**Prepared command process ( delete & set current command as the prepared command, user can set command name*/
+    
+    deleteCommand(command)
     {
-        clipboard.setText(this.pass).then(function() {
-            var toast = Toast.makeText("Copied to clipboard !");
-           toast.show();
-
-        
+        this.precommandService.deletePrecommand(command._id).subscribe(res=>{
+            const resultat = this.preCommands.findIndex(command => command._id === command._id);
+           
+                    this.preCommands.splice(resultat, 1);
+                
         })
-      
     }
-
     preCommand(command)
     {
         this.isPre=true
@@ -882,32 +684,87 @@ export class MainComponent implements OnInit, AfterViewInit,OnDestroy {
           }
         }
     }
+  /**END PREPARED COMMAND */
 
-
-
-
-
-
-    onSubmit(args) {
-        const searchBar = args.object as SearchBar;
-        console.log(`Searching for ${searchBar.text}`);
-        this.filteredProducts=this.products.filter(x=> x.name.indexOf(searchBar.text)!=-1)
-        console.log(this.filteredProducts);
-        this.cd.detectChanges();
+    
+  //USER UPDATE (Missing user picture update (done in back end with multer))
+    updateUser() {
+        this.userService.updateUser(this.user, this.user.id).subscribe((res: any) => {
+            var toast = Toast.makeText("Success updating user !");
+            toast.show();
+        },(err)=>{
+            var toast = Toast.makeText("Error updating user");
+            toast.show();
+        })
     }
 
-    onTextChanged(args) {
-        const searchBar = args.object as SearchBar;
-        console.log(`Input changed! New value: ${searchBar.text}`);
-        this.filteredProducts=this.products.filter(x=> x.name.indexOf(searchBar.text)!=-1)
-        console.log(this.filteredProducts);
-        this.cd.detectChanges();
+
+    
+//GENERATING REFERAL PASS and copying it to clipboard
+    generatePass() {
+        let x = this.passes.filter(x => x.isActive);
+        if (x.length <= 0) {
+            this.passService.ajouterPass({ creator: this.user.id }).subscribe((res: any) => {
+                if (res.success) {
+                    this.pass = res.obj;
+                    var toast = Toast.makeText("Pass has been generated !");
+                    toast.show();
+                } else {
+                    var toast = Toast.makeText("Try again later !");
+                    toast.show();
+                }
+            })
+        } else {
+           //Toast you already have an active pass
+           var toast = Toast.makeText("You already have an active pass");
+           toast.show();
+        }
+    }
+    savePass()
+    {
+        clipboard.setText(this.pass).then(function() {
+            var toast = Toast.makeText("Copied to clipboard !");
+           toast.show();
+
+        
+        })
+      
     }
 
-    onClear(args) {
-        const searchBar = args.object as SearchBar;
-        console.log(`Clear event raised`);
-        this.filteredProducts=[];
-        this.cd.detectChanges();
+    //GETTING USER DEVICE LOCATION WITH REVERSE GEOCODING LAT AND LNG
+    private getDeviceLocation(): Promise<any> {
+        return new Promise((resolve, reject) => {
+            Geolocation.enableLocationRequest().then(() => {
+                Geolocation.getCurrentLocation({ timeout: 10000 }).then(location => {
+                    this.http.get("http://api.bigdatacloud.net/data/reverse-geocode-client?latitude=" + location.latitude + "&longitude=" + location.longitude + "&localityLanguage=fr").subscribe((data: any) => {
+                        if (data.locality) {
+                            this.zone = data.locality;
+                        }
+                    })
+                    resolve(location);
+                }).catch(error => {
+                    reject(error);
+                });
+            });
+        });
+    }
+
+
+
+
+
+    //UTILITIES
+    formatUserNumber(num) {
+        return this.formatPipe.transform(num);
+    } 
+    isMidnight(str:string)
+    {
+        let h=str.substr(0,2);
+        if(Number(h)==24)
+        {
+            return true;
+        }else{
+            return false;
+        }
     }
 }

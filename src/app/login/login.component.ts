@@ -10,12 +10,18 @@ import { PassesService } from "../services/passes/passes.service";
 import { Router } from "@angular/router";
 import { device } from "tns-core-modules/platform";
 import { TranslateService } from "@ngx-translate/core";
+import { NotificationService } from "../services/notification/notification.service";
+export interface linkModel {
+    url?: string;
+    params?: string;
+    paramsValue?: string;
+}
 @Component({
     selector: "Login",
     moduleId: module.id,
     templateUrl: "./login.component.html",
     styleUrls: ['./login.component.css'],
-    providers: [UserService,TranslateService]
+    providers: [UserService, TranslateService, NotificationService]
 })
 export class LoginComponent implements OnInit, AfterViewInit {
 
@@ -41,12 +47,11 @@ export class LoginComponent implements OnInit, AfterViewInit {
     password: string;
     error: Boolean = false;
     errorMsg: string = "";
-
+    public notifLink: linkModel = {};
     constructor(private _page: Page, private routerExtensions: RouterExtensions,
         private fb: FormBuilder, private userService: UserService, private passService: PassesService,
-        private router: Router,private translate:TranslateService) {
-            this.translate.use(device.language.split("-")[0]);
-            //console.log(this.translate.use(device.language.split("-")[0]))
+        private router: Router, private translate: TranslateService, private notificationService: NotificationService) {
+        this.translate.use(device.language.split("-")[0]);
         this.userForm = this.fb.group({
             fname: new FormControl('', [
                 Validators.required,
@@ -81,7 +86,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
     ngOnInit(): void {
 
-        console.log("hellodjbkhbj")
+        
     }
     ngAfterViewInit() {
         this._page.on('navigatingTo', (data) => {
@@ -109,7 +114,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
         this.lng_drapeau = isChecked;
         if (isChecked) {
             this.lng = "en";
-           this.translate.use(this.lng);
+            this.translate.use(this.lng);
 
         } else {
             this.lng = "fr";
@@ -130,13 +135,12 @@ export class LoginComponent implements OnInit, AfterViewInit {
                 this.errorMsg = 'Les champs email et mot de passe sont obligatoires';
                 this.formSubmitted = false;
             } else {
-                console.log("before authenticate useqsdsr")
                 this.userService.authenticateUser(user).subscribe((res: any) => {
                     if (res.success) {
                         console.log(res)
                         this.userService.storeUserData(res.token, res.user);
                         this.routerExtensions.navigate(["/home/main"]);
-                                    this.formSubmitted = false;
+                        this.formSubmitted = false;
 
                         setTimeout(() => {
                             this.navigating = true;
@@ -149,7 +153,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
                                     scale: { x: 15, y: 15 },
                                     duration: 400,
                                 }).then(() => {
-                                    
+
                                 });
                             });
 
@@ -165,14 +169,37 @@ export class LoginComponent implements OnInit, AfterViewInit {
             if (this.userForm.valid) {
                 this.user = this.userForm.value;
                 this.user.prefered_lng = this.lng;
+                //User zone just for testing, needed in form
                 this.user.zone = "La Marsa";
                 this.userService.ajouterUtilisateur(this.user).subscribe((res: any) => {
                     if (res.success) {
                         let x = res.obj;
                         this.passService.submitUser(x.pass._id, { userId: x.userId }).subscribe((res: any) => {
                             if (res.success) {
+
                                 this.userService.authenticateUser(this.user).subscribe((res: any) => {
                                     if (res.success) {
+                                        this.notificationService.getAdminIds().subscribe((data: any) => {
+                                            if (data.success) {
+                                                this.notifLink.url = "/tables";
+                                                let receivers_ad = data.obj;
+                                                let notification = {
+                                                    sender_user: res.user.id,
+                                                    title: "New user has subscribed !",
+                                                    message: res.user.fname + " " + res.user.lname + " made an account !",
+                                                    link: this.notifLink,
+                                                    image: res.user.picture_url,
+                                                    receivers_ad: receivers_ad
+                                                }
+                                                this.notificationService.createNotification(notification).subscribe((data2: any) => {
+                                                    if (data2.success) {
+                                                        console.log(notification);
+                                                        console.log(data2);
+                                                    }
+                                                });
+                                            }
+                                        })
+
                                         this.userService.storeUserData(res.token, res.user);
                                         setTimeout(() => {
                                             this.navigating = true;
